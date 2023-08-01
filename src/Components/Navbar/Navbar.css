@@ -1,0 +1,8 @@
+.navbar {
+  background-color: rgb(29, 41, 19);
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+}
