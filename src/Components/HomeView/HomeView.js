@@ -2,7 +2,7 @@ import './HomeView.css';
 import IntroText from './IntroText/IntroText';
 import NasdaqButton from './NasdaqButton/NasdaqButton';
 import { Link } from 'react-router-dom';
-import { fetchNasdaq } from '../../apiCalls';
+import { fetchNasdaq, fetchNasdaqConstituents, fetchStock } from '../../apiCalls';
 import { useEffect, useState } from 'react';
 import { extractData } from '../../helperFunctions';
 
@@ -14,18 +14,17 @@ const HomeView = () => {
   useEffect(() => {
     fetchNasdaq()
       .then(data => {
-        const extractedData = extractData(data)
+        const extractedData = extractData(data);
         setNasdaqData(extractedData);
       })
       .catch(() => {
-        setWaitingForData(false)
+        setWaitingForData(false);
         setDataFailed(true);
       })
   }, [])
 
   useEffect(() => {
     if (nasdaqData.lastClose) {
-      console.log(nasdaqData)
       setWaitingForData(false)
       setDataFailed(false);
     }
@@ -36,7 +35,7 @@ const HomeView = () => {
       <IntroText />
         {waitingForData && <h2>Loading</h2>}
         {!waitingForData && dataFailed && <h2>Something went wrong</h2>}
-      <Link to='/nasdaq'>
+      <Link to='/stocksView'>
         {!waitingForData && !dataFailed && <NasdaqButton changePercent={nasdaqData.changePercent} lastClose={nasdaqData.lastClose} average={nasdaqData.average}/>}
       </Link>
     </div>
