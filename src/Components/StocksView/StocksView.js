@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchStock, fetchNasdaqConstituents } from "../../apiCalls";
 import StockCard from "../StockCard/StockCard";
+import { rankAndFilterStocks } from "../../helperFunctions";
 
 const StocksView = () => {
   const [nasdaqConstituents, setNasdaqConstituents] = useState([]);
@@ -19,7 +20,8 @@ const StocksView = () => {
             constituents.map((constituent, index) => fetchStock(constituent, index))
           )
         })
-        .then(newConstituents => {
+        .then(unfilteredConstituents => {
+          const newConstituents = rankAndFilterStocks(unfilteredConstituents);
           setNasdaqConstituents(newConstituents);
           setWaitingForData(false);
           setDataFailed(false);
