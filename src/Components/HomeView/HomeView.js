@@ -1,21 +1,21 @@
 import './HomeView.css';
 import IntroText from './IntroText/IntroText';
-import SpButton from './SpButton/SpButton';
+import NasdaqButton from './NasdaqButton/NasdaqButton';
 import { Link } from 'react-router-dom';
-import { fetchSp500 } from '../../apiCalls';
+import { fetchNasdaq } from '../../apiCalls';
 import { useEffect, useState } from 'react';
 import { extractData } from '../../helperFunctions';
 
 const HomeView = () => {
-  const [spData, setSpData] = useState({});
+  const [nasdaqData, setNasdaqData] = useState({});
   const [waitingForData, setWaitingForData] = useState(true);
   const [dataFailed, setDataFailed] = useState(true);
 
   useEffect(() => {
-    fetchSp500()
+    fetchNasdaq()
       .then(data => {
         const extractedData = extractData(data)
-        setSpData(extractedData);
+        setNasdaqData(extractedData);
       })
       .catch(() => {
         setWaitingForData(false)
@@ -24,20 +24,20 @@ const HomeView = () => {
   }, [])
 
   useEffect(() => {
-    if (spData.lastClose) {
-      console.log(spData)
+    if (nasdaqData.lastClose) {
+      console.log(nasdaqData)
       setWaitingForData(false)
       setDataFailed(false);
     }
-  }, [spData])
+  }, [nasdaqData])
 
   return (
     <div className='home-view'>
       <IntroText />
         {waitingForData && <h2>Loading</h2>}
         {!waitingForData && dataFailed && <h2>Something went wrong</h2>}
-      <Link to='/sp500'>
-        {!waitingForData && !dataFailed && <SpButton changePercent={spData.changePercent} lastClose={spData.lastClose} average={spData.average}/>}
+      <Link to='/nasdaq'>
+        {!waitingForData && !dataFailed && <NasdaqButton changePercent={nasdaqData.changePercent} lastClose={nasdaqData.lastClose} average={nasdaqData.average}/>}
       </Link>
     </div>
   )

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import './SpButton.css';
+import './NasdaqButton.css';
 
-const SpButton = ({lastClose, changePercent, average}) => {
+const NasdaqButton = ({lastClose, changePercent, average}) => {
   const [aboveAverage, setAboveAverage] = useState('below');
   
   useEffect(() => {
@@ -19,14 +19,14 @@ const SpButton = ({lastClose, changePercent, average}) => {
     <div className='index-container sp500'>
 
       <p className='click-index'>
-        (Click to view S&P 500 constituents)
+        (Click to view Nasdaq constituents)
       </p>
-      <h2 className='index-title'>S&P 500</h2>
+      <h2 className='index-title'>NDX 100</h2>
       <p>Last close: {lastClose}</p>
       <p>Moving average: {average}</p>
-      <p className={`${aboveAverage==="above"? "green-text": "red-text"}`}>S&P 500 is {aboveAverage} its moving average</p>
+      <p className={`${aboveAverage==="above"? "green-text": "red-text"}`}>NDX 100 is {aboveAverage} its moving average</p>
     </div>
   )
 }
 
-export default SpButton;
+export default NasdaqButton;
