@@ -3,6 +3,10 @@
   color: rgba(14, 60, 14, 0.6);
   border-radius: 25px;
   width: 50%;
-  font-size: 1.3rem;
-  padding: 10px;
+  font-size: 1.6rem;
+  padding: 20px;
+}
+
+.intro-text-container p {
+  margin: 0;
 }
