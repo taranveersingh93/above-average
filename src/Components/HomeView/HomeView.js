@@ -10,6 +10,7 @@ const HomeView = () => {
   const [nasdaqData, setNasdaqData] = useState({});
   const [waitingForData, setWaitingForData] = useState(true);
   const [dataFailed, setDataFailed] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
     fetchNasdaq()
@@ -17,7 +18,8 @@ const HomeView = () => {
         const extractedData = extractData(data);
         setNasdaqData(extractedData);
       })
-      .catch(() => {
+      .catch((error) => {
+        setErrorMessage(error);
         setWaitingForData(false);
         setDataFailed(true);
       })
