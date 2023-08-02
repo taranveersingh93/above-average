@@ -21,10 +21,11 @@ const fetchNasdaqConstituents = () => {
     .then(data => data.map(stock => ({symbol: stock.symbol, name: stock.name})))
 }
 
-const fetchStock = stock => {
+const fetchStock = (stock, index) => {
   const stockData = {
     symbol: stock.symbol,
-    name: stock.name
+    name: stock.name,
+    id: index,
   }
   return fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/${stock.symbol}?timeseries=151&apikey=${process.env.REACT_APP_API_KEY}`)
     .then(response => checkForError(response))
