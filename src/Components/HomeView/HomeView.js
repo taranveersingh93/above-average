@@ -36,7 +36,7 @@ const HomeView = () => {
     <div className='home-view'>
       <IntroText />
         {waitingForData && <h2>Loading</h2>}
-        {!waitingForData && dataFailed && <h2>Something went wrong</h2>}
+        {!waitingForData && dataFailed && <h2>{errorMessage}</h2>}
       <Link to='/stocksView'>
         {!waitingForData && !dataFailed && <NasdaqButton changePercent={nasdaqData.changePercent} lastClose={nasdaqData.lastClose} average={nasdaqData.average}/>}
       </Link>
