@@ -8,20 +8,36 @@ import { extractData } from '../../helperFunctions';
 
 const HomeView = () => {
   const [spData, setSpData] = useState({});
+  const [waitingForData, setWaitingForData] = useState(true);
+  const [dataFailed, setDataFailed] = useState(true);
 
   useEffect(() => {
-    fetchSp500().then(data => {
-      extractData(data, setSpData)
-    })
+    fetchSp500()
+      .then(data => {
+        const extractedData = extractData(data)
+        setSpData(extractedData);
+      })
+      .catch(() => {
+        setWaitingForData(false)
+        setDataFailed(true);
+      })
   }, [])
 
-  
+  useEffect(() => {
+    if (spData.lastClose) {
+      console.log(spData)
+      setWaitingForData(false)
+      setDataFailed(false);
+    }
+  }, [spData])
 
   return (
     <div className='home-view'>
       <IntroText />
+        {waitingForData && <h2>Loading</h2>}
+        {!waitingForData && dataFailed && <h2>Something went wrong</h2>}
       <Link to='/sp500'>
-        {/* <SpButton currentPrice={currentPrice} average={average}/> */}
+        {!waitingForData && !dataFailed && <SpButton changePercent={spData.changePercent} lastClose={spData.lastClose} average={spData.average}/>}
       </Link>
     </div>
   )

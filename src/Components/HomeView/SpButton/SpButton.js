@@ -1,29 +1,30 @@
 import { useEffect, useState } from 'react';
 import './SpButton.css';
 
-const SpButton = ({currentPrice, previousPrice, average}) => {
+const SpButton = ({lastClose, changePercent, average}) => {
   const [aboveAverage, setAboveAverage] = useState('below');
-  const percentChange = ((currentPrice - previousPrice)*100)/currentPrice;
   
   useEffect(() => {
-    if (currentPrice && average) {
-      if (currentPrice > average) {
-        setAboveAverage('above');
-      } else {
-        setAboveAverage('below');
-      }
+    console.log(average, lastClose)
+    if (lastClose > average) {
+      console.log('there')
+      setAboveAverage('above');
+    } else {
+      console.log('here')
+      setAboveAverage('below');
     }
-  }, [currentPrice, average])
+  }, [])
 
   return (
     <div className='index-container sp500'>
-      <h2 className='index-title'>S&P 500</h2>
-      <p>Last close: {currentPrice}</p>
-      <p>Change: {percentChange}%</p>
-      <p>S&P 500 is {aboveAverage} its moving average</p>
-      <p>
-        Click to view S&P 500 constituents
+
+      <p className='click-index'>
+        (Click to view S&P 500 constituents)
       </p>
+      <h2 className='index-title'>S&P 500</h2>
+      <p>Last close: {lastClose}</p>
+      <p>Moving average: {average}</p>
+      <p className={`${aboveAverage==="above"? "green-text": "red-text"}`}>S&P 500 is {aboveAverage} its moving average</p>
     </div>
   )
 }

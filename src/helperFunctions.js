@@ -1,6 +1,6 @@
-const extractData = (data, setterFn) => {
+const extractData = (data) => {
   const baseData = data.historical.slice(0,150);
-  const allClosingPrices = baseData.map(day => day.close.toFixed(2));
+  const allClosingPrices = baseData.map(day => Number(day.close.toFixed(2)));
   const initialClose = allClosingPrices[149];
   const lastClose = allClosingPrices[0];
   const longTermReturn = (((lastClose - initialClose)*100)/initialClose).toFixed(2);
@@ -13,7 +13,8 @@ const extractData = (data, setterFn) => {
     average: average,
     longTermReturn: longTermReturn
   }
-  setterFn(extraction);
+  
+  return extraction;
 }
 
 export {extractData}
