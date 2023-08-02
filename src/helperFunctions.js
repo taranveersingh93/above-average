@@ -20,7 +20,12 @@ const extractData = (data) => {
 const rankAndFilterStocks = stocks => {
   const filteredByAbsoluteMomentum = stocks.filter(stock => stock.data.lastClose > stock.data.average);
   const sortedByRelativeMomentum = filteredByAbsoluteMomentum.sort((a,b) => b.data.longTermReturn - a.data.longTermReturn);
-  return sortedByRelativeMomentum;
+  const ranksIncluded = sortedByRelativeMomentum.map((stock, index) => {
+    const rankedStock = {...stock}
+    rankedStock.id = index+1
+    return rankedStock
+  })
+  return ranksIncluded;
 }
 
 export {extractData, rankAndFilterStocks}

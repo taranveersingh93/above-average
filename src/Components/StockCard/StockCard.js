@@ -3,6 +3,7 @@ import './StockCard.css';
 const StockCard = ({symbol, name, data, id}) => {
   return (
     <div className='stock-card' id={id}>
+      <p>Rank: {id}</p>
       <div className='name-symbol'>
         <h3>{symbol}</h3>
         <p>{name}</p>
