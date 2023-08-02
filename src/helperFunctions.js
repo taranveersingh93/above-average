@@ -6,7 +6,7 @@ const extractData = (data) => {
   const longTermReturn = (((lastClose - initialClose)*100)/initialClose).toFixed(2);
   const priceSum = allClosingPrices.reduce((sum, price) => sum + price, 0);
   const average = (priceSum/150).toFixed(2);
-  const changePercent = baseData[0].changePercent;
+  const changePercent = baseData[0].changePercent.toFixed(2);
   const extraction = {
     lastClose: lastClose,
     changePercent: changePercent,
