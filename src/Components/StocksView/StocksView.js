@@ -47,10 +47,6 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
     }
   }, [nasdaqConstituents])
 
-  useEffect(() => {
-    console.log(stocksCode)
-  }, [stocksCode])
-
   return (
     <div className="stocks-view">
       <h2 className="heading">Displaying {nasdaqConstituents.length} stocks that are above their 150 Day Moving Average</h2>
