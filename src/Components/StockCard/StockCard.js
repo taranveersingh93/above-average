@@ -23,8 +23,8 @@ const StockCard = ({symbol, name, data, id}) => {
         <p>150d Return</p>
         <h3 className={`${data.longTermReturn>0? "dark-green-text": "red-text"}`}>{data.longTermReturn}%</h3>
       </div>
-      <div className='stock-info'>
-        <button className='watchlist-btn'>{`${data.saved? "Remove from watchlist": "Save to watchlist"}`}</button>
+      <div className='button-container'>
+        <button className={`${data.saved? "red-watchlist-btn watchlist-btn": "green-watchlist-btn watchlist-btn"}`}>{`${data.saved? "Remove from watchlist": "Save to watchlist"}`}</button>
       </div>
       
     </div>
