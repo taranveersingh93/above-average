@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchStock, fetchNasdaqConstituents } from "../../apiCalls";
-import StockCard from "../StockCard/StockCard";
-import { rankAndFilterStocks } from "../../helperFunctions";
+import { rankAndFilterStocks, makeStockCards } from "../../helperFunctions";
+import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import './StocksView.css'
 
 const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFromWatchlist}) => {
@@ -11,8 +11,6 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
   const [dataFailed, setDataFailed] = useState(true);
   const [stocksCode, setStocksCode] = useState([]);
 
-
-  useEffect(() => {console.log(errorMessage)}, [errorMessage])
   useEffect(() => {
     if (!nasdaqConstituents.length) {
       fetchNasdaqConstituents()
@@ -28,30 +26,24 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
           assignNasdaqConstituents(newConstituents);
         })
         .catch(error => {
-          setErrorMessage(error)
+          console.log(error.message)
+          setErrorMessage(error.message)
           setWaitingForData(false);
           setDataFailed(true);
         })
     } else {
-      const nasdaqCode = nasdaqConstituents.map(constituent => {
-        return <StockCard
-          symbol={constituent.symbol}
-          name={constituent.name}
-          id={constituent.id}
-          key={constituent.id}
-          data={constituent.data}
-          toggleStockFromWatchlist={toggleStockFromWatchlist}
-        />
-      })
+      const nasdaqCode = makeStockCards(nasdaqConstituents, toggleStockFromWatchlist);
       setStocksCode(nasdaqCode)
     }
   }, [nasdaqConstituents])
 
   return (
     <div className="stocks-view">
-      <h2 className="heading">Displaying {nasdaqConstituents.length} stocks that are above their 150 Day Moving Average</h2>
-      <p className="subheading">These stocks are ranked by their 150 Day return.</p>
-      {stocksCode}
+      {!dataFailed && !waitingForData && <h2 className="heading">Displaying {nasdaqConstituents.length} stocks that are above their 150 Day Moving Average</h2>}
+      {!dataFailed && !waitingForData && <p className="subheading">These stocks are ranked by their 150 Day return.</p>}
+      {!dataFailed && !waitingForData && stocksCode}
+      {!waitingForData && dataFailed && <h2>{errorMessage}</h2>}
+      {waitingForData && <LoadSpinner />}
     </div>
   )
 }

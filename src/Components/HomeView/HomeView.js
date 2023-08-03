@@ -2,9 +2,10 @@ import './HomeView.css';
 import IntroText from './IntroText/IntroText';
 import NasdaqButton from './NasdaqButton/NasdaqButton';
 import { Link } from 'react-router-dom';
-import { fetchNasdaq, fetchNasdaqConstituents, fetchStock } from '../../apiCalls';
+import { fetchNasdaq } from '../../apiCalls';
 import { useEffect, useState } from 'react';
 import { extractData } from '../../helperFunctions';
+import LoadSpinner from '../LoadSpinner/LoadSpinner';
 
 const HomeView = ({nasdaqData, assignNasdaqData}) => {
   const [waitingForData, setWaitingForData] = useState(true);
@@ -18,7 +19,7 @@ const HomeView = ({nasdaqData, assignNasdaqData}) => {
         assignNasdaqData(extractedData);
       })
       .catch((error) => {
-        setErrorMessage(error);
+        setErrorMessage(error.message);
         setWaitingForData(false);
         setDataFailed(true);
       })
@@ -34,7 +35,7 @@ const HomeView = ({nasdaqData, assignNasdaqData}) => {
   return (
     <div className='home-view'>
       <IntroText />
-        {waitingForData && <h2>Loading</h2>}
+        {waitingForData && <LoadSpinner />}
         {!waitingForData && dataFailed && <h2>{errorMessage}</h2>}
       <Link to='/stocksView'>
         {!waitingForData && !dataFailed && <NasdaqButton changePercent={nasdaqData.changePercent} lastClose={nasdaqData.lastClose} average={nasdaqData.average}/>}

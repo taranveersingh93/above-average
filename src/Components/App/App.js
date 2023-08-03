@@ -28,7 +28,8 @@ const App = () => {
   }
 
   useEffect(() => {
-    const savedStocks = nasdaqConstituents.filter(stock => stock.data.saved)
+    const savedStocks = nasdaqConstituents.filter(stock => stock.data.saved);
+    setSavedConstituents(savedStocks);
   }, [nasdaqConstituents])
 
   return (
@@ -37,7 +38,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomeView nasdaqData={nasdaqData} assignNasdaqData={assignNasdaqData}/>}/>
         <Route path='/stocksView' element={<StocksView nasdaqConstituents={nasdaqConstituents} assignNasdaqConstituents={assignNasdaqConstituents} toggleStockFromWatchlist={toggleStockFromWatchlist}/>}/>
-        <Route path='/watchlist' element={<Watchlist />} />
+        <Route path='/watchlist' element={<Watchlist savedConstituents={savedConstituents} toggleStockFromWatchlist={toggleStockFromWatchlist}/>} />
       </Routes>
     </>
   )

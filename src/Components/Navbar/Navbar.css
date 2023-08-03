@@ -9,6 +9,7 @@
 }
 
 .navlinks {
+  min-width: 400px;
   width: 50%;
   display: flex;
   justify-content: space-evenly;
@@ -18,6 +19,7 @@
 .navlinks p{
   margin: 0;
 }
+
 .navlinks a {
   color: white;
   text-decoration: none;
