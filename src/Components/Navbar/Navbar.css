@@ -12,12 +12,27 @@
   width: 50%;
   display: flex;
   justify-content: space-evenly;
+  margin: 10px;
 }
 
+.navlinks p{
+  margin: 0;
+}
 .navlinks a {
   color: white;
+  text-decoration: none;
+  border: solid 1px rgb(29, 41, 19);
+  padding: 5px;
 }
 
 .navlinks .active {
   color: rgb(89, 252, 92);
+  border: solid 1px white;
+  padding: 5px;
+}
+
+@media (min-width:901px) {
+  a:hover {
+    border: solid 1px white;
+  }
 }
