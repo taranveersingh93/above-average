@@ -6,11 +6,8 @@ const Watchlist = ({savedConstituents, toggleStockFromWatchlist}) => {
   const [stocksCode, setStocksCode] = useState([]);
 
   useEffect(() => {
-    console.log('savedConstituents', savedConstituents)
-    if (savedConstituents?.length) {
-      const watchlistCode = makeStockCards(savedConstituents, toggleStockFromWatchlist);
-      setStocksCode(watchlistCode);
-    }
+    const watchlistCode = makeStockCards(savedConstituents, toggleStockFromWatchlist);
+    setStocksCode(watchlistCode);
   }, [savedConstituents])
 
   return (

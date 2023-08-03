@@ -10,8 +10,6 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
   const [dataFailed, setDataFailed] = useState(true);
   const [stocksCode, setStocksCode] = useState([]);
 
-
-  useEffect(() => {console.log(errorMessage)}, [errorMessage])
   useEffect(() => {
     if (!nasdaqConstituents.length) {
       fetchNasdaqConstituents()

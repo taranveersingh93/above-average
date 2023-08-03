@@ -21,7 +21,6 @@ const App = () => {
   }
 
   const toggleStockFromWatchlist = id => {
-    console.log(`triggered with ${id}`)
     const clonedConstituents = [...nasdaqConstituents];
     const indexPosition = clonedConstituents.indexOf(clonedConstituents.find(constituent => constituent.id === id));
     clonedConstituents[indexPosition].data.saved = !clonedConstituents[indexPosition].data.saved;
@@ -29,7 +28,6 @@ const App = () => {
   }
 
   useEffect(() => {
-    console.log('reset savedstockss')
     const savedStocks = nasdaqConstituents.filter(stock => stock.data.saved);
     setSavedConstituents(savedStocks);
   }, [nasdaqConstituents])
