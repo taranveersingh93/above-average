@@ -11,6 +11,7 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
   const [dataFailed, setDataFailed] = useState(true);
   const [stocksCode, setStocksCode] = useState([]);
 
+
   useEffect(() => {
     if (!nasdaqConstituents.length) {
       fetchNasdaqConstituents()
@@ -31,6 +32,8 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
           setDataFailed(true);
         })
     } else {
+      setDataFailed(false)
+      setWaitingForData(false)
       const nasdaqCode = makeStockCards(nasdaqConstituents, toggleStockFromWatchlist);
       setStocksCode(nasdaqCode)
     }
