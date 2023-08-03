@@ -6,8 +6,7 @@ import { fetchNasdaq, fetchNasdaqConstituents, fetchStock } from '../../apiCalls
 import { useEffect, useState } from 'react';
 import { extractData } from '../../helperFunctions';
 
-const HomeView = () => {
-  const [nasdaqData, setNasdaqData] = useState({});
+const HomeView = ({nasdaqData, assignNasdaqData}) => {
   const [waitingForData, setWaitingForData] = useState(true);
   const [dataFailed, setDataFailed] = useState(true);
   const [errorMessage, setErrorMessage] = useState('')
@@ -16,7 +15,7 @@ const HomeView = () => {
     fetchNasdaq()
       .then(data => {
         const extractedData = extractData(data);
-        setNasdaqData(extractedData);
+        assignNasdaqData(extractedData);
       })
       .catch((error) => {
         setErrorMessage(error);

@@ -47,6 +47,17 @@
   cursor: pointer;
 }
 
+.red-watchlist-btn {
+  background-color: rgb(100, 22, 22);
+  color: white;
+}
+
+.red-watchlist-btn:hover {
+  background-color: white;
+  color: rgb(100, 22, 22);
+  cursor: pointer;
+}
+
 @media (max-width:900px) {
   .stock-card {
     flex-direction: column;
