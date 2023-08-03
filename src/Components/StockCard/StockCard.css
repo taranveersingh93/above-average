@@ -21,6 +21,15 @@
   color: red;
 }
 
+.watchlist-btn {
+  padding: 5px;
+  height: 50px;
+  width: 60%;
+  font-size: 1.2rem;
+  background-color: rgb(77, 99, 58);
+  color: white;
+}
+
 @media (max-width:900px) {
   .stock-card {
     flex-direction: column;

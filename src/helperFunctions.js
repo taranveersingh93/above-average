@@ -11,7 +11,8 @@ const extractData = (data) => {
     lastClose: lastClose,
     changePercent: changePercent,
     average: average,
-    longTermReturn: longTermReturn
+    longTermReturn: longTermReturn,
+    saved: false
   }
   
   return extraction;
