@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchStock, fetchNasdaqConstituents } from "../../apiCalls";
-import StockCard from "../StockCard/StockCard";
-import { rankAndFilterStocks } from "../../helperFunctions";
+import { rankAndFilterStocks, makeStockCards } from "../../helperFunctions";
 import './StocksView.css'
 
 const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFromWatchlist}) => {
@@ -33,16 +32,7 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
           setDataFailed(true);
         })
     } else {
-      const nasdaqCode = nasdaqConstituents.map(constituent => {
-        return <StockCard
-          symbol={constituent.symbol}
-          name={constituent.name}
-          id={constituent.id}
-          key={constituent.id}
-          data={constituent.data}
-          toggleStockFromWatchlist={toggleStockFromWatchlist}
-        />
-      })
+      const nasdaqCode = makeStockCards(nasdaqConstituents, toggleStockFromWatchlist);
       setStocksCode(nasdaqCode)
     }
   }, [nasdaqConstituents])

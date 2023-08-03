@@ -1,3 +1,5 @@
+import StockCard from './Components/StockCard/StockCard'
+
 const extractData = (data) => {
   const baseData = data.historical.slice(0,150);
   const allClosingPrices = baseData.map(day => Number(day.close.toFixed(2)));
@@ -29,4 +31,19 @@ const rankAndFilterStocks = stocks => {
   return ranksIncluded;
 }
 
-export {extractData, rankAndFilterStocks}
+const makeStockCards = (constituents, toggleStockFromWatchlist) => {
+  const stocksCode = constituents.map(constituent => {
+    return <StockCard
+      symbol={constituent.symbol}
+      name={constituent.name}
+      id={constituent.id}
+      key={constituent.id}
+      data={constituent.data}
+      toggleStockFromWatchlist={toggleStockFromWatchlist}
+    />
+  })
+
+  return stocksCode;
+}
+
+export {extractData, rankAndFilterStocks, makeStockCards}
