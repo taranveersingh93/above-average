@@ -16,13 +16,16 @@ const StockCard = ({symbol, name, data, id}) => {
         <h3>{data.lastClose}</h3>
       </div>
       <div className='stock-info'>
-        <p>Change</p>
-        <h3>{data.changePercent}</h3>
+        <p>Last Day Change</p>
+        <h3 className={`${data.changePercent>0? "dark-green-text": "red-text"}`}>{data.changePercent}%</h3>
       </div>
       <div className='stock-info'>
         <p>150d Return</p>
-        <h3>{data.longTermReturn}%</h3>
+        <h3 className={`${data.longTermReturn>0? "dark-green-text": "red-text"}`}>{data.longTermReturn}%</h3>
       </div>
+      {/* <div className='stock-info'>
+      
+      </div> */}
       
     </div>
   )

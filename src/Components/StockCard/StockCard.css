@@ -13,6 +13,14 @@
   flex-direction: column;
 }
 
+.dark-green-text {
+  color: rgb(56, 147, 56);
+}
+
+.red-text {
+  color: red;
+}
+
 @media (max-width:900px) {
   .stock-card {
     flex-direction: column;
