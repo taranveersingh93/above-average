@@ -3,7 +3,7 @@ import { fetchStock, fetchNasdaqConstituents } from "../../apiCalls";
 import StockCard from "../StockCard/StockCard";
 import { rankAndFilterStocks } from "../../helperFunctions";
 
-const StocksView = ({nasdaqConstituents, assignNasdaqConstituents}) => {
+const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFromWatchlist}) => {
   
   const [errorMessage, setErrorMessage] = useState('');
   const [waitingForData, setWaitingForData] = useState(true);
@@ -39,6 +39,7 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents}) => {
           id={constituent.id}
           key={constituent.id}
           data={constituent.data}
+          toggleStockFromWatchlist={toggleStockFromWatchlist}
         />
       })
       setStocksCode(nasdaqCode)
