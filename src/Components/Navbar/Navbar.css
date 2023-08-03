@@ -2,7 +2,22 @@
   background-color: rgb(29, 41, 19);
   height: 15%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100px;
+}
+
+.navlinks {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.navlinks a {
+  color: white;
+}
+
+.navlinks .active {
+  color: rgb(89, 252, 92);
 }
