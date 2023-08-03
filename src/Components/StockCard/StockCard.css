@@ -5,9 +5,32 @@
   border: 3px solid green;
 }
 
-.name-symbol {
+.stock-info {
+  width: 15vw;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
+}
+
+@media (max-width:900px) {
+  .stock-card {
+    flex-direction: column;
+    
+  }
+
+  .stock-info {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 50%;
+    height: 50px;
+  }
+
+  .stock-info p{
+    margin: 5px;
+  }
+
+  .stock-info h3 {
+    margin: 5px;
+  }
 }
