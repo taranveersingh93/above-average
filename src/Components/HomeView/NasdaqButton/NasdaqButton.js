@@ -13,8 +13,7 @@ const NasdaqButton = ({lastClose, changePercent, average}) => {
   }, [])
 
   return (
-    <div className='index-container sp500'>
-
+    <div className='index-container'>
       <p className='click-index'>
         (Click to view Nasdaq constituents)
       </p>
