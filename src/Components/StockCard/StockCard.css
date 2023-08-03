@@ -41,33 +41,35 @@
   color: white;
 }
 
-.green-watchlist-btn:hover {
-  background-color: white;
-  color: rgb(77,99,58);
-  cursor: pointer;
-}
-
 .red-watchlist-btn {
   background-color: rgb(100, 22, 22);
   color: white;
 }
 
-.red-watchlist-btn:hover {
-  background-color: white;
-  color: rgb(100, 22, 22);
-  cursor: pointer;
+@media (min-width:901px) {
+  .green-watchlist-btn:hover {
+    background-color: white;
+    color: rgb(77,99,58);
+    cursor: pointer;
+  }
+  
+  .red-watchlist-btn:hover {
+    background-color: white;
+    color: rgb(100, 22, 22);
+    cursor: pointer;
+  }
 }
 
 @media (max-width:900px) {
   .stock-card {
     flex-direction: column;
-    
+    width: 98%;
   }
 
   .stock-info {
     flex-direction: row;
     justify-content: space-between;
-    width: 50%;
+    width: 60%;
     height: 50px;
   }
 
@@ -93,4 +95,5 @@
   .stock-info h3 {
     margin: 5px;
   }
+
 }

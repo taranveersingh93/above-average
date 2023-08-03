@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchStock, fetchNasdaqConstituents } from "../../apiCalls";
 import StockCard from "../StockCard/StockCard";
 import { rankAndFilterStocks } from "../../helperFunctions";
+import './StocksView.css'
 
 const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFromWatchlist}) => {
   
@@ -52,6 +53,8 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
 
   return (
     <div className="stocks-view">
+      <h2 className="heading">Displaying {nasdaqConstituents.length} stocks that are above their 150 Day Moving Average</h2>
+      <p className="subheading">These stocks are ranked by their 150 Day return.</p>
       {stocksCode}
     </div>
   )
