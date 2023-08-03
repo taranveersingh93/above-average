@@ -21,7 +21,7 @@ const fetchNasdaqConstituents = () => {
     .then(data => data.map(stock => ({symbol: stock.symbol, name: stock.name})))
 }
 
-const fetchStock = (stock, index) => {
+const fetchStock = (stock) => {
   const stockData = {
     symbol: stock.symbol,
     name: stock.name,
