@@ -10,9 +10,15 @@ import { useEffect, useState } from 'react';
 
 const App = () => {
   const [nasdaqData, setNasdaqData] = useState({});
+  const [nasdaqConstituents, setNasdaqConstituents] = useState([]);
 
   const assignNasdaqData = data => {
-    setNasdaqData(data)
+    setNasdaqData(data);
+  }
+
+  const assignNasdaqConstituents = data => {
+    console.log(data, "assigning data")
+    setNasdaqConstituents(data);
   }
 
   return (
@@ -20,7 +26,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomeView nasdaqData={nasdaqData} assignNasdaqData={assignNasdaqData}/>}/>
-        <Route path='/stocksView' element={<StocksView />}/>
+        <Route path='/stocksView' element={<StocksView nasdaqConstituents={nasdaqConstituents} assignNasdaqConstituents={assignNasdaqConstituents}/>}/>
       </Routes>
     </>
   )
