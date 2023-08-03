@@ -62,7 +62,9 @@ const StockChart = ({nasdaqConstituents}) => {
   }
 
   return (
-    <Line className='line' options={options} data={data} />
+    <div className='line-container'>
+      <Line className='line' options={options} data={data} />
+    </div>
   )
 }
 
