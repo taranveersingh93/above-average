@@ -26,8 +26,8 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
           assignNasdaqConstituents(newConstituents);
         })
         .catch(error => {
-          console.log(typeof error)
-          setErrorMessage(error)
+          console.log(error.message)
+          setErrorMessage(error.message)
           setWaitingForData(false);
           setDataFailed(true);
         })
