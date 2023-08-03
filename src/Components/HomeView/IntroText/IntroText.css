@@ -10,3 +10,9 @@
 .intro-text-container p {
   margin: 0;
 }
+
+@media (max-width: 600px) {
+  .intro-text-container {
+    width: 80%;
+  }
+} 
