@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import './NasdaqButton.css';
+import PropTypes from 'prop-types'
 
-const NasdaqButton = ({lastClose, changePercent, average}) => {
+const NasdaqButton = ({lastClose, average}) => {
   const [aboveAverage, setAboveAverage] = useState('below');
   
   useEffect(() => {
@@ -23,6 +24,11 @@ const NasdaqButton = ({lastClose, changePercent, average}) => {
       <p className={`${aboveAverage==="above"? "green-text": "red-text"}`}>NDX 100 is {aboveAverage} its moving average</p>
     </div>
   )
+}
+
+NasdaqButton.propTypes = {
+  lastClose: PropTypes.number,
+  average: PropTypes.number
 }
 
 export default NasdaqButton;
