@@ -19,7 +19,7 @@ const Navbar = () => {
   }, [])
 
   return (
-    <div className={`${scrolled? "navbar sticky": "navbar"}`}>
+    <div className={`${scrolled? "navbar sticky-navbar": "navbar"}`}>
       <Logo />
       <div className='navlinks'>
         <NavLink to='/'><p>Home</p></NavLink>
