@@ -55,7 +55,6 @@ const StockChart = () => {
 
   useEffect(() => {
     if (currentStock.data) {
-      console.log(currentStock.data.priceHistory, "pricehistory")
       const options = {
         responsive: true,
         scales: {
