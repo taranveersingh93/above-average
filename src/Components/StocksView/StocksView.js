@@ -17,7 +17,7 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
       fetchNasdaqConstituents()
         .then(constituents => {
           return Promise.all(
-            constituents.map((constituent, index) => fetchStock(constituent, index))
+            constituents.map((constituent) => fetchStock(constituent))
           )
         })
         .then(unfilteredConstituents => {
