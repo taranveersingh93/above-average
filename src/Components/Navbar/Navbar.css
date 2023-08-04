@@ -5,13 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100px;
-}
-
-.sticky-navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
+  min-height: 150px;
 }
 
 .navlinks {
