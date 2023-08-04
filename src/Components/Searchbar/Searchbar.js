@@ -2,12 +2,8 @@ import { useState } from 'react'
 import crossIcon from '../../images/cross.png'
 import './Searchbar.css'
 
-const Searchbar = () => {
-  const [searchValue, setSearchValue] = useState('');
-
-  const handleSearch = (searchText) => {
-    setSearchValue(searchText);
-  }
+const Searchbar = ({handleSearch, searchValue}) => {
+ 
 
   return (
     <div className="search-container">
