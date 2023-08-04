@@ -1,5 +1,6 @@
 import './StockCard.css';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const StockCard = ({symbol, name, data, id, toggleStockFromWatchlist}) => {
   return (
@@ -31,6 +32,14 @@ const StockCard = ({symbol, name, data, id, toggleStockFromWatchlist}) => {
       
     </div>
   )
+}
+
+StockCard.propTypes = {
+  symbol: PropTypes.string,
+  name: PropTypes.string,
+  data: PropTypes.object,
+  id: PropTypes.number,
+  toggleStockFromWatchlist: PropTypes.func
 }
 
 export default StockCard;

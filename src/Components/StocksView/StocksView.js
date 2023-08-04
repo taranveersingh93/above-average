@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchStock, fetchNasdaqConstituents } from "../../apiCalls";
 import { rankAndFilterStocks, makeStockCards } from "../../helperFunctions";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import PropTypes from 'prop-types';
 import './StocksView.css'
 
 const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFromWatchlist}) => {
@@ -48,6 +49,12 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
       {waitingForData && <LoadSpinner />}
     </div>
   )
+}
+
+StocksView.propTypes = {
+  nasdaqConstituents: PropTypes.array,
+  assignNasdaqConstituents: PropTypes.func,
+  toggleStockFromWatchlist: PropTypes.func
 }
 
 export default StocksView;
