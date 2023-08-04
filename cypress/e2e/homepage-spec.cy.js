@@ -34,4 +34,13 @@ describe('Landing page elements', () => {
     cy.wait('@stub500')
     cy.get('h2').contains('Something went wrong')
   })
+
+  it('shows the right error handling for 429', () => {
+    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+      statusCode: 429
+    }).as('stub429');
+    cy.visit('localhost:3000')
+    cy.wait('@stub429')
+    cy.get('h2').contains('The founder is waiting for funding')
+  })
 })
