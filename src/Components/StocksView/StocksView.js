@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchStock, fetchNasdaqConstituents } from "../../apiCalls";
 import { rankAndFilterStocks, makeStockCards } from "../../helperFunctions";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import Searchbar from "../Searchbar/Searchbar";
 import PropTypes from 'prop-types';
 import './StocksView.css'
 
@@ -11,7 +12,18 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
   const [waitingForData, setWaitingForData] = useState(true);
   const [dataFailed, setDataFailed] = useState(true);
   const [stocksCode, setStocksCode] = useState([]);
+  const [stocksOfInterest, setStocksOfInterest] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [stocksToShow, setStocksToShow] = useState(false);
 
+  const filterStocks = (searchText, stocks) => {
+    return [...stocks].filter(stock => stock.name.toLowerCase().includes(searchText.toLowerCase()) || stock.symbol.toLowerCase().includes(searchText.toLowerCase()));
+  }
+
+  const handleSearch = (searchText) => {
+    setSearchValue(searchText);
+    setStocksOfInterest(filterStocks(searchText, nasdaqConstituents));
+  }
 
   useEffect(() => {
     if (!nasdaqConstituents.length) {
@@ -35,16 +47,26 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
     } else {
       setDataFailed(false)
       setWaitingForData(false)
-      const nasdaqCode = makeStockCards(nasdaqConstituents, toggleStockFromWatchlist);
-      setStocksCode(nasdaqCode)
+      setStocksOfInterest(filterStocks(searchValue, nasdaqConstituents))
     }
   }, [nasdaqConstituents])
 
+  useEffect(() => {
+    if (stocksOfInterest.length) {
+      setStocksToShow(true);
+    } else {
+      setStocksToShow(false);
+    }
+    const nasdaqCode = makeStockCards(stocksOfInterest, toggleStockFromWatchlist);
+    setStocksCode(nasdaqCode)
+  }, [stocksOfInterest])
   return (
     <div className="stocks-view">
-      {!dataFailed && !waitingForData && <h2 className="heading">Displaying {nasdaqConstituents.length} stocks that are above their 150 Day Moving Average</h2>}
-      {!dataFailed && !waitingForData && <p className="subheading">These stocks are ranked by their 150 Day return.</p>}
+      {!dataFailed && !waitingForData && <Searchbar searchValue={searchValue} handleSearch={handleSearch}/>}
+      {stocksToShow && !dataFailed && !waitingForData && <h2 className="heading">Displaying {stocksOfInterest.length} stocks that are above their 150 Day Moving Average</h2>}
+      {stocksToShow && !dataFailed && !waitingForData && <p className="subheading">These stocks are ranked by their 150 Day return.</p>}
       {!dataFailed && !waitingForData && stocksCode}
+      {!stocksToShow && !dataFailed && !waitingForData && <h2 className="heading">No Nasdaq stocks match your search</h2>}
       {!waitingForData && dataFailed && <h2>{errorMessage}</h2>}
       {waitingForData && <LoadSpinner />}
     </div>
