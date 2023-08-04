@@ -14,7 +14,8 @@ const extractData = (data) => {
     changePercent: changePercent,
     average: average,
     longTermReturn: longTermReturn,
-    saved: false
+    saved: false,
+    priceHistory: baseData.reverse()
   }
   
   return extraction;

@@ -11,12 +11,13 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
   const [dataFailed, setDataFailed] = useState(true);
   const [stocksCode, setStocksCode] = useState([]);
 
+
   useEffect(() => {
     if (!nasdaqConstituents.length) {
       fetchNasdaqConstituents()
         .then(constituents => {
           return Promise.all(
-            constituents.map((constituent, index) => fetchStock(constituent, index))
+            constituents.map((constituent) => fetchStock(constituent))
           )
         })
         .then(unfilteredConstituents => {
@@ -26,12 +27,13 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
           assignNasdaqConstituents(newConstituents);
         })
         .catch(error => {
-          console.log(error.message)
           setErrorMessage(error.message)
           setWaitingForData(false);
           setDataFailed(true);
         })
     } else {
+      setDataFailed(false)
+      setWaitingForData(false)
       const nasdaqCode = makeStockCards(nasdaqConstituents, toggleStockFromWatchlist);
       setStocksCode(nasdaqCode)
     }

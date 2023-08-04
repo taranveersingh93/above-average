@@ -5,6 +5,7 @@ import HomeView from '../HomeView/HomeView';
 import StocksView from '../StocksView/StocksView';
 import { useEffect, useState } from 'react';
 import Watchlist from '../Watchlist/Watchlist';
+import StockChart from '../StockChart/StockChart';
 
 
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="/" element={<HomeView nasdaqData={nasdaqData} assignNasdaqData={assignNasdaqData}/>}/>
         <Route path='/stocksView' element={<StocksView nasdaqConstituents={nasdaqConstituents} assignNasdaqConstituents={assignNasdaqConstituents} toggleStockFromWatchlist={toggleStockFromWatchlist}/>}/>
         <Route path='/watchlist' element={<Watchlist savedConstituents={savedConstituents} toggleStockFromWatchlist={toggleStockFromWatchlist}/>} />
+        <Route path='/:symbol' element={<StockChart nasdaqConstituents={nasdaqConstituents}/>}></Route>
       </Routes>
     </>
   )
