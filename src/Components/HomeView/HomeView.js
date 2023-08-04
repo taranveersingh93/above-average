@@ -6,6 +6,7 @@ import { fetchNasdaq } from '../../apiCalls';
 import { useEffect, useState } from 'react';
 import { extractData } from '../../helperFunctions';
 import LoadSpinner from '../LoadSpinner/LoadSpinner';
+import PropTypes from 'prop-types';
 
 const HomeView = ({nasdaqData, assignNasdaqData}) => {
   const [waitingForData, setWaitingForData] = useState(true);
@@ -44,4 +45,8 @@ const HomeView = ({nasdaqData, assignNasdaqData}) => {
   )
 }
 
+HomeView.propTypes = {
+  nasdaqData: PropTypes.object,
+  assignNasdaqData: PropTypes.func
+}
 export default HomeView;
