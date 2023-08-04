@@ -51,11 +51,7 @@ const StockChart = () => {
           setErrorMessage(error.message);
         })
     }
-  }, [])
-
-  // useEffect(() => {
-  //   console.log("currentstock",currentStock)
-  // }, [currentStock])
+  }, []) 
 
   useEffect(() => {
     if (currentStock.data) {
