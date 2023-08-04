@@ -51,4 +51,6 @@ const nasdaqConstituentsStub = [
   }
 ]
 
+
+
 export default nasdaqConstituentsStub;
