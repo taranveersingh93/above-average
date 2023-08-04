@@ -37,15 +37,13 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <div className='main'>
-        <Routes>
-          <Route path="/" element={<HomeView nasdaqData={nasdaqData} assignNasdaqData={assignNasdaqData}/>}/>
-          <Route path='/stocksView' element={<StocksView nasdaqConstituents={nasdaqConstituents} assignNasdaqConstituents={assignNasdaqConstituents} toggleStockFromWatchlist={toggleStockFromWatchlist}/>}/>
-          <Route path='/watchlist' element={<Watchlist savedConstituents={savedConstituents} toggleStockFromWatchlist={toggleStockFromWatchlist}/>} />
-          <Route path='/chart/:symbol' element={<StockChart nasdaqConstituents={nasdaqConstituents}/>}></Route>
-          <Route path='*' element={<ErrorPage />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<HomeView nasdaqData={nasdaqData} assignNasdaqData={assignNasdaqData}/>}/>
+        <Route path='/stocksView' element={<StocksView nasdaqConstituents={nasdaqConstituents} assignNasdaqConstituents={assignNasdaqConstituents} toggleStockFromWatchlist={toggleStockFromWatchlist}/>}/>
+        <Route path='/watchlist' element={<Watchlist savedConstituents={savedConstituents} toggleStockFromWatchlist={toggleStockFromWatchlist}/>} />
+        <Route path='/chart/:symbol' element={<StockChart nasdaqConstituents={nasdaqConstituents}/>}></Route>
+        <Route path='*' element={<ErrorPage />} />
+      </Routes>
     </>
   )
 }

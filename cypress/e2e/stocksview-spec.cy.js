@@ -55,3 +55,113 @@ describe('Stocksview spec', () => {
     cy.get('.stock-card').eq(1).find('.watchlist-btn').contains('Save to watchlist')
   })
 })
+
+describe('Error handling', () => {
+  it('should return an error if constituents fail', () => {
+    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+     statusCode: 500,
+   }).as('getNasdaqConstituents')
+  
+   allSymbols.forEach(symbol => {
+     cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+       statusCode: 200,
+       fixture: `stub${symbol}`
+     }).as(`get${symbol}`)
+   })
+  
+   cy.visit('localhost:3000/stocksView')
+   cy.wait('@getNasdaqConstituents')
+   cy.get('h2').contains('Something went wrong')
+  })
+
+  it('should return an error if an individual stock fetch fails', () => {
+    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+      statusCode: 200,
+      body: nasdaqConstituentsStub
+    }).as('getNasdaqConstituents')
+  
+    allSymbols.forEach(symbol => {
+      cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+        statusCode: 400,
+      }).as(`get${symbol}`)
+    })
+    
+    cy.visit('localhost:3000/stocksView')
+    cy.wait('@getNasdaqConstituents')
+    const symbolWaitArray = allSymbols.map(symbol => `@get${symbol}`)
+    cy.wait(symbolWaitArray);
+    cy.get('h2').contains('Something went wrong')
+  })
+
+  it("should return relevant error if API limit is reached while fetching constituents", () => {
+    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+      statusCode: 429,
+    }).as('getNasdaqConstituents')
+  
+    allSymbols.forEach(symbol => {
+      cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+        statusCode: 200,
+        fixture: `stub${symbol}`
+      }).as(`get${symbol}`)
+    })
+  
+    cy.visit('localhost:3000/stocksView')
+    cy.wait('@getNasdaqConstituents')
+    cy.get('h2').contains('The founder is waiting for funding')
+  })
+
+  it('should return an error if API limit is reached during individual stock fetch ', () => {
+    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+      statusCode: 200,
+      body: nasdaqConstituentsStub
+    }).as('getNasdaqConstituents')
+  
+    allSymbols.forEach(symbol => {
+      cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+        statusCode: 429,
+      }).as(`get${symbol}`)
+    })
+    
+    cy.visit('localhost:3000/stocksView')
+    cy.wait('@getNasdaqConstituents')
+    const symbolWaitArray = allSymbols.map(symbol => `@get${symbol}`)
+    cy.wait(symbolWaitArray);
+    cy.get('h2').contains('The founder is waiting for funding')
+  })
+
+  it('should return an error for 500 error while fetching constituents', () => {
+    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+      statusCode: 500,
+    }).as('getNasdaqConstituents')
+  
+    allSymbols.forEach(symbol => {
+      cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+        statusCode: 200,
+        fixture: `stub${symbol}`
+      }).as(`get${symbol}`)
+    })
+  
+    cy.visit('localhost:3000/stocksView')
+    cy.wait('@getNasdaqConstituents')
+    cy.get('h2').contains('Something went wrong')
+  })
+
+  it('should return an error for 500 error whiel fetching single stock', () => {
+    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+      statusCode: 200,
+      body: nasdaqConstituentsStub
+    }).as('getNasdaqConstituents')
+  
+    allSymbols.forEach(symbol => {
+      cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+        statusCode: 500,
+      }).as(`get${symbol}`)
+    })
+    
+    cy.visit('localhost:3000/stocksView')
+    cy.wait('@getNasdaqConstituents')
+    const symbolWaitArray = allSymbols.map(symbol => `@get${symbol}`)
+    cy.wait(symbolWaitArray);
+    cy.get('h2').contains('Something went wrong')
+  })
+})
