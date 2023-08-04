@@ -39,7 +39,13 @@
 
 @media (max-width:600px) {
   .home-view a {
-    width: 85%;
+    width: 90%;
+  }
+}
+
+@media (max-width:950px) {
+  .home-view a {
+    width: 60%;
   }
 }
 
