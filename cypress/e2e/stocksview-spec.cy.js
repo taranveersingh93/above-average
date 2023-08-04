@@ -39,4 +39,20 @@ describe('Stocksview spec', () => {
     cy.get('.stock-card').eq(1).find('.stock-info').eq(4).find('p').contains('150d Return')
     cy.get('.stock-card').eq(1).find('.stock-info').eq(4).find('h3').contains('56.08%')
   })
+
+  it('should be able to save stocks to watchlist', () => {
+    cy.get('.navlinks').find('a').eq(2).contains('Watchlist').click();
+    cy.get('h2').contains('You have no stocks saved');
+    cy.get('.navlinks').find('a').eq(1).click();
+    cy.get('.stock-card').eq(1).find('.watchlist-btn')
+      .contains('Save to watchlist').click()
+      .contains('Remove from watchlist');
+    cy.get('.navlinks').find('a').eq(2).contains('Watchlist').click();
+    cy.get('.stock-card').should('have.length', 1);
+    cy.get('.stock-card').find('.stock-info').eq(1).find('h3').contains('ADBE')
+    cy.get('.watchlist-btn').click();
+    cy.get('h2').contains('You have no stocks saved');
+    cy.get('.navlinks').find('a').eq(1).click();
+    cy.get('.stock-card').eq(1).find('.watchlist-btn').contains('Save to watchlist')
+  })
 })
