@@ -1,10 +1,9 @@
-import { useState } from 'react'
-import crossIcon from '../../images/cross.png'
-import './Searchbar.css'
+import { useState } from 'react';
+import crossIcon from '../../images/cross.png';
+import './Searchbar.css';
+import PropTypes from 'prop-types';
 
 const Searchbar = ({handleSearch, searchValue}) => {
- 
-
   return (
     <div className="search-container">
       <input 
@@ -24,6 +23,11 @@ const Searchbar = ({handleSearch, searchValue}) => {
       </div>
     </div>
   )
+}
+
+Searchbar.propTypes = {
+  handleSearch: PropTypes.func,
+  searchValue: PropTypes.string
 }
 
 export default Searchbar;
