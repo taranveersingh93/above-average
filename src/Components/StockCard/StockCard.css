@@ -6,7 +6,7 @@
 }
 
 .stock-info {
-  width: 15vw;
+  width: 13vw;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -14,10 +14,22 @@
 }
 
 .button-container {
-  width: 15vw;
+  height: 80px;
+  width: 20vw;
   display: flex;
-  justify-content: center;
+  /* flex-direction: column; */
+  justify-content: space-evenly;
   align-items: center;
+}
+
+.button-container a {
+  width: 40%;
+}
+
+.chart-btn {
+  width: 100%;
+  padding: 4px;
+  font-size: 1rem;
 }
 
 .dark-green-text {
@@ -29,11 +41,10 @@
 }
 
 .watchlist-btn {
-  padding: 5px;
-  min-height: 50px;
-  width: 60%;
-  font-size: 1.2rem;
+  padding: 4px;
+  width: 40%;
   transition: 0.3s;
+  font-size: 1rem;
 }
 
 .green-watchlist-btn {
@@ -74,16 +85,16 @@
   }
 
   .button-container {
-    width: 50%;
+    width: 80%;
     height: 70px;
-    flex-direction: column;
-    justify-content: center;
+    /* flex-direction: column; */
+    justify-content: space-between;
   }
 
   .watchlist-btn {
     padding: 5px;
-    height: 50px;
-    width: 70%;
+    /* height: 50px; */
+    width: 50%;
     font-size: 1rem;
     transition: 0.3s;
   }
