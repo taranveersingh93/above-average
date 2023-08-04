@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchStock, fetchNasdaqConstituents } from "../../apiCalls";
 import { rankAndFilterStocks, makeStockCards } from "../../helperFunctions";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import Searchbar from "../Searchbar/Searchbar";
 import PropTypes from 'prop-types';
 import './StocksView.css'
 
@@ -42,6 +43,7 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
 
   return (
     <div className="stocks-view">
+      {!dataFailed && !waitingForData && <Searchbar />}
       {!dataFailed && !waitingForData && <h2 className="heading">Displaying {nasdaqConstituents.length} stocks that are above their 150 Day Moving Average</h2>}
       {!dataFailed && !waitingForData && <p className="subheading">These stocks are ranked by their 150 Day return.</p>}
       {!dataFailed && !waitingForData && stocksCode}
