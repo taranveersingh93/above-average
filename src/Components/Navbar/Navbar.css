@@ -8,12 +8,6 @@
   min-height: 150px;
 }
 
-.sticky-navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
 .navlinks {
   min-width: 400px;
   width: 50%;

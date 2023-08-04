@@ -20,7 +20,6 @@ describe('Stocksview spec', () => {
    cy.wait('@getNasdaqConstituents')
    const symbolWaitArray = allSymbols.map(symbol => `@get${symbol}`)
    cy.wait(symbolWaitArray);
-  
   })
 
   it('should show the right elements', () => {
