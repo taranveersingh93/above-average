@@ -1,0 +1,9 @@
+.error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-page h2 {
+  font-weight: 200;
+}
