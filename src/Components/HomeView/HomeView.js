@@ -20,6 +20,7 @@ const HomeView = ({nasdaqData, assignNasdaqData}) => {
         assignNasdaqData(extractedData);
       })
       .catch((error) => {
+        console.log(error)
         setErrorMessage(error.message);
         setWaitingForData(false);
         setDataFailed(true);

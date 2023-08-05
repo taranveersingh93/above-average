@@ -4,13 +4,13 @@ const allSymbols = ["AAPL", "ABNB", "ADBE", "ADI", "ADP"];
 
 describe('Stocksview spec', () => {
   beforeEach(() => {
-    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+    cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/nasdaqConstituents`, {
      statusCode: 200,
      body: nasdaqConstituentsStub
    }).as('getNasdaqConstituents')
   
    allSymbols.forEach(symbol => {
-     cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+     cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/${symbol}`, {
        statusCode: 200,
        fixture: `stub${symbol}`
      }).as(`get${symbol}`)
