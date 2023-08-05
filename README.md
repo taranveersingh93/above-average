@@ -20,6 +20,11 @@ The user can also click on a stock to view a chart.
 ### Context:
 At the time of this project, I'm in Mod 3 of the Turing Frontend Development Program. A total of 20 hours were spent on this project.
 
+### Technical note: 
+The app was initially storing an api key on the frontend as an environment variable but this api key was visible in the network requests. To protect that api key, I coded/deployed this 
+[proxy api server](https://github.com/taranveersingh93/above-average-api).
+This proxy server has the api key as an environment variable and exposes the required endpoints to frontend. The frontend makes fetch requests to these endpoints and then the proxy api server in turn calls the actual api service for the data.
+
 ## Contributors
 <table>
      <tr>
