@@ -59,7 +59,7 @@ describe('Stocksview spec', () => {
 describe('Error handling', () => {
   it('should return an error if constituents fail', () => {
     cy.intercept('GET', `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
-     statusCode: 500,
+     statusCode: 404,
    }).as('getNasdaqConstituents')
   
    allSymbols.forEach(symbol => {
@@ -68,7 +68,7 @@ describe('Error handling', () => {
        fixture: `stub${symbol}`
      }).as(`get${symbol}`)
    })
-  
+
    cy.visit('localhost:3000/stocksView')
    cy.wait('@getNasdaqConstituents')
    cy.get('h2').contains('Something went wrong')
@@ -82,13 +82,13 @@ describe('Error handling', () => {
   
     allSymbols.forEach(symbol => {
       cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
-        statusCode: 400,
+        statusCode: 404,
       }).as(`get${symbol}`)
     })
     
     cy.visit('localhost:3000/stocksView')
-    cy.wait('@getNasdaqConstituents')
     const symbolWaitArray = allSymbols.map(symbol => `@get${symbol}`)
+    cy.wait('@getNasdaqConstituents')
     cy.wait(symbolWaitArray);
     cy.get('h2').contains('Something went wrong')
   })
@@ -100,14 +100,15 @@ describe('Error handling', () => {
   
     allSymbols.forEach(symbol => {
       cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
-        statusCode: 200,
+        statusCode: 404,
         fixture: `stub${symbol}`
       }).as(`get${symbol}`)
     })
-  
+
     cy.visit('localhost:3000/stocksView')
-    cy.wait('@getNasdaqConstituents')
-    cy.get('h2').contains('The founder is waiting for funding')
+    cy.wait('@getNasdaqConstituents').then(() => {
+      cy.get('h2').contains('The founder is waiting for funding')
+    })
   })
 
   it('should return an error if API limit is reached during individual stock fetch ', () => {
@@ -123,10 +124,12 @@ describe('Error handling', () => {
     })
     
     cy.visit('localhost:3000/stocksView')
-    cy.wait('@getNasdaqConstituents')
-    const symbolWaitArray = allSymbols.map(symbol => `@get${symbol}`)
-    cy.wait(symbolWaitArray);
-    cy.get('h2').contains('The founder is waiting for funding')
+    cy.wait('@getNasdaqConstituents').then(() => {
+      const symbolWaitArray = allSymbols.map(symbol => `@get${symbol}`)
+      cy.wait(symbolWaitArray).then(() => {
+        cy.get('h2').contains('The founder is waiting for funding')
+      })
+    })
   })
 
   it('should return an error for 500 error while fetching constituents', () => {
@@ -142,8 +145,9 @@ describe('Error handling', () => {
     })
   
     cy.visit('localhost:3000/stocksView')
-    cy.wait('@getNasdaqConstituents')
-    cy.get('h2').contains('Something went wrong')
+    cy.wait('@getNasdaqConstituents').then(() => {
+      cy.get('h2').contains('Something went wrong')
+    })
   })
 
   it('should return an error for 500 error whiel fetching single stock', () => {
@@ -159,9 +163,11 @@ describe('Error handling', () => {
     })
     
     cy.visit('localhost:3000/stocksView')
-    cy.wait('@getNasdaqConstituents')
-    const symbolWaitArray = allSymbols.map(symbol => `@get${symbol}`)
-    cy.wait(symbolWaitArray);
-    cy.get('h2').contains('Something went wrong')
+    cy.wait('@getNasdaqConstituents').then(() => {
+      const symbolWaitArray = allSymbols.map(symbol => `@get${symbol}`)
+      cy.wait(symbolWaitArray).then(() => {
+        cy.get('h2').contains('Something went wrong')
+      });
+    })
   })
 })
