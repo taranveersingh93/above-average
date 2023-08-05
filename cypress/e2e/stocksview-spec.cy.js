@@ -101,7 +101,6 @@ describe('Error handling', () => {
     allSymbols.forEach(symbol => {
       cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/${symbol}`, {
         statusCode: 404,
-        fixture: `stub${symbol}`
       }).as(`get${symbol}`)
     })
 
