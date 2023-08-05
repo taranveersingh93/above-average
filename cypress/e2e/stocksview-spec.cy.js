@@ -4,13 +4,13 @@ const allSymbols = ["AAPL", "ABNB", "ADBE", "ADI", "ADP"];
 
 describe('Stocksview spec', () => {
   beforeEach(() => {
-    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+    cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/nasdaqConstituents`, {
      statusCode: 200,
      body: nasdaqConstituentsStub
    }).as('getNasdaqConstituents')
   
    allSymbols.forEach(symbol => {
-     cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+     cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/${symbol}`, {
        statusCode: 200,
        fixture: `stub${symbol}`
      }).as(`get${symbol}`)
@@ -58,12 +58,12 @@ describe('Stocksview spec', () => {
 
 describe('Error handling', () => {
   it('should return an error if constituents fail', () => {
-    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+    cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/nasdaqConstituents`, {
      statusCode: 404,
    }).as('getNasdaqConstituents')
   
    allSymbols.forEach(symbol => {
-     cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+     cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/${symbol}`, {
        statusCode: 200,
        fixture: `stub${symbol}`
      }).as(`get${symbol}`)
@@ -75,13 +75,13 @@ describe('Error handling', () => {
   })
 
   it('should return an error if an individual stock fetch fails', () => {
-    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+    cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/nasdaqConstituents`, {
       statusCode: 200,
       body: nasdaqConstituentsStub
     }).as('getNasdaqConstituents')
   
     allSymbols.forEach(symbol => {
-      cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+      cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/${symbol}`, {
         statusCode: 404,
       }).as(`get${symbol}`)
     })
@@ -94,12 +94,12 @@ describe('Error handling', () => {
   })
 
   it("should return relevant error if API limit is reached while fetching constituents", () => {
-    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+    cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/nasdaqConstituents`, {
       statusCode: 429,
     }).as('getNasdaqConstituents')
   
     allSymbols.forEach(symbol => {
-      cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+      cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/${symbol}`, {
         statusCode: 404,
         fixture: `stub${symbol}`
       }).as(`get${symbol}`)
@@ -112,13 +112,13 @@ describe('Error handling', () => {
   })
 
   it('should return an error if API limit is reached during individual stock fetch ', () => {
-    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+    cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/nasdaqConstituents`, {
       statusCode: 200,
       body: nasdaqConstituentsStub
     }).as('getNasdaqConstituents')
   
     allSymbols.forEach(symbol => {
-      cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+      cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/${symbol}`, {
         statusCode: 429,
       }).as(`get${symbol}`)
     })
@@ -133,12 +133,12 @@ describe('Error handling', () => {
   })
 
   it('should return an error for 500 error while fetching constituents', () => {
-    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+    cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/nasdaqConstituents`, {
       statusCode: 500,
     }).as('getNasdaqConstituents')
   
     allSymbols.forEach(symbol => {
-      cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+      cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/${symbol}`, {
         statusCode: 200,
         fixture: `stub${symbol}`
       }).as(`get${symbol}`)
@@ -151,13 +151,13 @@ describe('Error handling', () => {
   })
 
   it('should return an error for 500 error whiel fetching single stock', () => {
-    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+    cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/nasdaqConstituents`, {
       statusCode: 200,
       body: nasdaqConstituentsStub
     }).as('getNasdaqConstituents')
   
     allSymbols.forEach(symbol => {
-      cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?timeseries=151&apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+      cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/${symbol}`, {
         statusCode: 500,
       }).as(`get${symbol}`)
     })

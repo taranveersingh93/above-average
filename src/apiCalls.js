@@ -11,12 +11,12 @@ const checkForError = response => {
 }
 
 const fetchNasdaq = () => {
-  return fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${process.env.REACT_APP_API_KEY}`)
+    return fetch(`https://above-average-api-8566e04bf888.herokuapp.com/nasdaqData`)
     .then(response => checkForError(response))
 }
 
 const fetchNasdaqConstituents = () => {
-  return fetch(`https://financialmodelingprep.com/api/v3/nasdaq_constituent?apikey=${process.env.REACT_APP_API_KEY}`)
+  return fetch(`https://above-average-api-8566e04bf888.herokuapp.com/nasdaqConstituents`)
     .then(response => checkForError(response))
     .then(data => data.map(stock => ({symbol: stock.symbol, name: stock.name})))
 }
@@ -26,7 +26,8 @@ const fetchStock = (stock) => {
     symbol: stock.symbol,
     name: stock.name,
   }
-  return fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/${stock.symbol}?timeseries=151&apikey=${process.env.REACT_APP_API_KEY}`)
+
+  return fetch(`https://above-average-api-8566e04bf888.herokuapp.com/${stock.symbol}`)
     .then(response => checkForError(response))
     .then(fetchedData => {
       stockData.data = extractData(fetchedData);

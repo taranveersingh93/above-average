@@ -1,7 +1,7 @@
 describe('Landing page elements', () => {
 
   it('shows the right elements', () => {
-    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+    cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/nasdaqData`, {
       statusCode: 200,
       fixture: 'nasdaqResponse'
     }).as('getNasdaqData')
@@ -18,7 +18,7 @@ describe('Landing page elements', () => {
   })
 
   it('shows the right error handling for 400', () => {
-    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+    cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/nasdaqData`, {
       statusCode: 400
     }).as('stub400');
     cy.visit('localhost:3000')
@@ -27,7 +27,7 @@ describe('Landing page elements', () => {
   })
 
   it('shows the right error handling for 500', () => {
-    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+    cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/nasdaqData`, {
       statusCode: 500
     }).as('stub500');
     cy.visit('localhost:3000')
@@ -36,7 +36,7 @@ describe('Landing page elements', () => {
   })
 
   it('shows the right error handling for 429', () => {
-    cy.intercept('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/%5ENDX?apikey=${Cypress.env(`REACT_APP_API_KEY`)}`, {
+    cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/nasdaqData`, {
       statusCode: 429
     }).as('stub429');
     cy.visit('localhost:3000')

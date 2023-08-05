@@ -17,7 +17,6 @@ const extractData = (data) => {
     saved: false,
     priceHistory: baseData.reverse()
   }
-  
   return extraction;
 }
 
