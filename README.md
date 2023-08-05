@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# Above Average
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## [Explore the App here](https://taranveer-above-average.vercel.app/)
 
-## Available Scripts
+### Preview of App:
+![above-average-ipad-gif](https://user-images.githubusercontent.com/122247155/258600085-ceba6d3f-75ab-4c5e-96d9-a40a7278b882.gif)<br>
+![above-average-gif](https://user-images.githubusercontent.com/122247155/258600054-7a285880-a061-4534-8f64-3a61ceabc804.gif)
 
-In the project directory, you can run:
+## Installation Instructions
+In order to clone this application:
+- Create a directory in your local machine, go to terminal and run `git clone git@github.com:taranveersingh93/above-average.git`
+- Run `cd above-average`
+- Run `npm i`
+- run `npm start` 
 
-### `npm start`
+## Abstract: 
+Above Average is a free to use app that pulls all the stock constituents from Nasdaq, filters out the stocks weak in absolute momentum and ranks the stocks based on relative momentum. The app also lets users search a stock by name/symbol and save the stock to a watchlist. 
+The user can also click on a stock to view a chart.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Context:
+At the time of this project, I'm in Mod 3 of the Turing Frontend Development Program. A total of 20 hours were spent on this project.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Contributors
+<table>
+     <tr>
+        <td> Taranveer Singh <a href="https://github.com/taranveersingh93">Github</td>
+    </tr>
+    <tr>
+        <td><img src="https://avatars.githubusercontent.com/u/122247155?v=4" alt="Taranveer GH img"
+    width="150" height="auto" /></td>
+    </tr>
+</table>
 
-### `npm test`
+### Learning Goals:
+- Utilize React concepts
+- Implement Cypress E2E Testing
+- Implement React Router
+- Make network requests to retrieve data from the server.
+- Maintain proper git workflow and practices.
+- Screen responsiveness
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### Tech Stack
+- JavaScript, CSS/HTML, Cypress, Webpack, React, React Router, FETCH API's
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### Dependencies
+npm i
