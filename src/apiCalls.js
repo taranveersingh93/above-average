@@ -11,12 +11,12 @@ const checkForError = response => {
 }
 
 const fetchNasdaq = () => {
-    return fetch(`https://above-average-api-8566e04bf888.herokuapp.com/nasdaqData`)
+    return fetch(`https://above-average-api-production.up.railway.app/nasdaqData`)
     .then(response => checkForError(response))
 }
 
 const fetchNasdaqConstituents = () => {
-  return fetch(`https://above-average-api-8566e04bf888.herokuapp.com/nasdaqConstituents`)
+  return fetch(`https://above-average-api-production.up.railway.app/nasdaqConstituents`)
     .then(response => checkForError(response))
     .then(data => data.map(stock => ({symbol: stock.symbol, name: stock.name})))
 }
@@ -27,7 +27,7 @@ const fetchStock = (stock) => {
     name: stock.name,
   }
 
-  return fetch(`https://above-average-api-8566e04bf888.herokuapp.com/${stock.symbol}`)
+  return fetch(`https://above-average-api-production.up.railway.app/${stock.symbol}`)
     .then(response => checkForError(response))
     .then(fetchedData => {
       stockData.data = extractData(fetchedData);
