@@ -63,7 +63,7 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
   return (
     <div className="stocks-view">
       {!dataFailed && !waitingForData && <Searchbar searchValue={searchValue} handleSearch={handleSearch}/>}
-      {stocksToShow && !dataFailed && !waitingForData && <h2 className="heading">Displaying {stocksOfInterest.length} Nasdaq stocks</h2>}
+      {stocksToShow && !dataFailed && !waitingForData && <h2 className="heading">Rating {stocksOfInterest.length} Nasdaq stocks based on their closing price vs their 150d Moving Average</h2>}
       {stocksToShow && !dataFailed && !waitingForData && <p className="subheading">These stocks are ranked by their 150 Day return.</p>}
       {!dataFailed && !waitingForData && stocksCode}
       {!stocksToShow && !dataFailed && !waitingForData && <h2 className="heading">No Nasdaq stocks match your search</h2>}
