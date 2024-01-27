@@ -2,6 +2,13 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
+
+.stock-card-border-red {
+  border: 3px solid red;
+}
+
+.stock-card-border-green {
   border: 3px solid green;
 }
 

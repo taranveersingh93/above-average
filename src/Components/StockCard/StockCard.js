@@ -1,10 +1,11 @@
 import './StockCard.css';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { isAboveAverage } from '../../helperFunctions';
 
 const StockCard = ({symbol, name, data, id, toggleStockFromWatchlist}) => {
   return (
-    <div className='stock-card' id={id}>
+    <div className={isAboveAverage(data)? 'stock-card stock-card-border-green': 'stock-card stock-card-border-red'} id={id}>
       <div className='stock-info'>
         <p>Rank</p>
         <h3>{id}</h3>
@@ -12,6 +13,10 @@ const StockCard = ({symbol, name, data, id, toggleStockFromWatchlist}) => {
       <div className='stock-info'>
         <p>{name}</p>
         <h3>{symbol}</h3>
+      </div>
+      <div className='stock-info'>
+        <p>Rating</p>
+        <h3 className={isAboveAverage(data)? "dark-green-text": "red-text"}>{isAboveAverage(data)? "Above Average": "Below Average"}</h3>
       </div>
       <div className='stock-info'>
         <p>Last Close</p>

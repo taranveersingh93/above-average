@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchStock, fetchNasdaqConstituents } from "../../apiCalls";
-import { rankAndFilterStocks, makeStockCards } from "../../helperFunctions";
+import { rankStocks, makeStockCards, isAboveAverage } from "../../helperFunctions";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import Searchbar from "../Searchbar/Searchbar";
 import PropTypes from 'prop-types';
@@ -34,7 +34,7 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
           )
         })
         .then(unfilteredConstituents => {
-          const newConstituents = rankAndFilterStocks(unfilteredConstituents);
+          const newConstituents = rankStocks(unfilteredConstituents);
           setWaitingForData(false);
           setDataFailed(false);
           assignNasdaqConstituents(newConstituents);
@@ -63,7 +63,7 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
   return (
     <div className="stocks-view">
       {!dataFailed && !waitingForData && <Searchbar searchValue={searchValue} handleSearch={handleSearch}/>}
-      {stocksToShow && !dataFailed && !waitingForData && <h2 className="heading">Displaying {stocksOfInterest.length} stocks that are above their 150 Day Moving Average</h2>}
+      {stocksToShow && !dataFailed && !waitingForData && <h2 className="heading">Displaying {stocksOfInterest.length} Nasdaq stocks</h2>}
       {stocksToShow && !dataFailed && !waitingForData && <p className="subheading">These stocks are ranked by their 150 Day return.</p>}
       {!dataFailed && !waitingForData && stocksCode}
       {!stocksToShow && !dataFailed && !waitingForData && <h2 className="heading">No Nasdaq stocks match your search</h2>}

@@ -20,9 +20,12 @@ const extractData = (data) => {
   return extraction;
 }
 
-const rankAndFilterStocks = stocks => {
-  const filteredByAbsoluteMomentum = stocks.filter(stock => stock.data.lastClose > stock.data.average);
-  const sortedByRelativeMomentum = filteredByAbsoluteMomentum.sort((a,b) => b.data.longTermReturn - a.data.longTermReturn);
+const isAboveAverage = stockData => {
+   return stockData.lastClose > stockData.average;
+}
+
+const rankStocks = stocks => {
+  const sortedByRelativeMomentum = stocks.sort((a,b) => b.data.longTermReturn - a.data.longTermReturn);
   const ranksIncluded = sortedByRelativeMomentum.map((stock, index) => {
     const rankedStock = {...stock}
     rankedStock.id = index+1
@@ -46,4 +49,4 @@ const makeStockCards = (constituents, toggleStockFromWatchlist) => {
   return stocksCode;
 }
 
-export {extractData, rankAndFilterStocks, makeStockCards}
+export {extractData, rankStocks, makeStockCards, isAboveAverage}
