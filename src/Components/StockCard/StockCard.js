@@ -5,50 +5,70 @@ import { isAboveAverage, getStockColor } from '../../helperFunctions';
 
 const StockCard = ({ symbol, name, data, id, toggleStockFromWatchlist }) => {
   return (
-    <div className="card position-relative stock-card futuristic-card shadow-lg rounded p-3 mb-4 h-100">
-      <div className="symbol-tag position-absolute text-white py-2 px-3 rounded-3 z-index-10"
-        style={{ backgroundColor: getStockColor(data.lastClose, data.average) }}
->
-        <span className="fs-6">{symbol}</span>
+    <div className="card position-relative stock-card shadow-lg rounded p-3 mb-4 h-100">
+      <div className="symbol-tag position-absolute text-white py-1 px-3 rounded-3 z-index-10"
+        style={{ backgroundColor: getStockColor(data.lastClose, data.average) }}>
+        <span className="symbol-text">{symbol}</span>
       </div>
-      <div className="card-body">
-        <h5 className="card-title text-center futuristic-text">{name}</h5>
-        <h6 className="card-subtitle mb-2 text-center futuristic-text">{symbol}</h6>
-        
-        <p className="card-text futuristic-text">
-          <strong>Last Close: </strong>
-          <span>{data?.lastClose}</span>
-        </p>
-        
-        <p className="card-text futuristic-text">
-          <strong>Change: </strong>
-          <span className={data?.changePercent >= 0 ? "text-success" : "text-danger"}>
-            {data?.changePercent}%
-          </span>
-        </p>
+      <div className="card-body d-flex flex-column justify-content-around">
+      <div className="d-flex justify-content-around mb-4 p-3 border-bottom align-items-center">
+    <p className="rank-text fs-3">
+      #{id}
+    </p>
+    <div className="d-flex flex-column align-items-center">
+      <h5 className="font-weight-300 text-center">{name}</h5>
+      <p className="font-weight-300 small-text text-center">Last Close: {data?.lastClose}</p>
+    </div>
 
-        <p className="card-text futuristic-text">
-          <strong>Rating: </strong>
-          <span className={isAboveAverage(data) ? "text-success" : "text-danger"}>
-            {isAboveAverage(data) ? "Above Average" : "Below Average"}
-          </span>
-        </p>
+  </div>
+        <div className="d-flex align-items-center justify-content-around border p-2 mb-2">
+          <i className="bi bi-info-circle text-success fs-3 me-3"></i>
+          <div className="d-flex flex-column align-items-center">
+            <span className="text-muted small-text">Moving Avg</span>
+            <span className="font-weight-300">{data?.average}</span>
+          </div>
+        </div>
+        
+        <div className="d-flex align-items-center justify-content-around border p-2 mb-2">
+          <i className={`bi fs-3 ${data?.changePercent >= 0 ? 'bi-arrow-up' : 'bi-arrow-down'} text-${data?.changePercent >= 0 ? 'success' : 'danger'} me-3`}></i> {/* Icon */}
+          <div className="d-flex flex-column align-items-center">
+            <span className="text-muted small-text">Change</span>
+            <span className={` ${data?.changePercent >= 0 ? 'text-success' : 'text-danger'}`}>{data?.changePercent}%</span>
+          </div>
+        </div>
 
-        <div className="button-container">
-          <Link to={`/chart/${symbol}`} className="btn btn-outline-neon w-100 mb-2">
-            View Chart
-          </Link>
-          
-          <button 
-            onClick={() => toggleStockFromWatchlist(id)} 
-            className={`btn w-100 ${data.saved ? 'btn-danger' : 'btn-success'}`}
-          >
-            {data.saved ? 'Remove from watchlist' : 'Save to watchlist'}
-          </button>
-        </div>
-        <div className='align-self-center'>
-        <i className="bi bi-wrench text-primary"></i>
-        </div>
+        <div className="d-flex align-items-center justify-content-around border p-2 mb-2">
+  <i 
+    className={`bi fs-3 ${isAboveAverage(data) ? 'bi-hand-thumbs-up text-success' : 'bi-hand-thumbs-down text-danger'} 
+    me-3`} 
+  ></i>
+  <div className="d-flex flex-column align-items-center">
+    <span className="text-muted small-text">Rating</span> {/* 'small' is a Bootstrap class for small text */}
+    <span className={`small-text ${isAboveAverage(data) ? 'text-success' : 'text-danger'}`}>
+      {isAboveAverage(data) ? 'Above Average' : 'Below Average'}
+    </span>
+  </div>
+</div>
+<div className="button-container d-flex">
+  <Link 
+    to={`/chart/${symbol}`} 
+    className="btn btn-outline-success w-50 m-2 d-flex align-items-center justify-content-center"
+  >
+    <i className="bi bi-graph-up me-2"></i>
+    View Chart
+  </Link>
+
+  {/* Save to Watchlist Button with conditional styling and icons */}
+  <button 
+    onClick={() => toggleStockFromWatchlist(id)} 
+    className={`btn m-2 w-50 ${data.saved ? 'btn-outline-danger' : 'btn-outline-primary'} d-flex align-items-center justify-content-center`}
+  >
+    <i className={`bi ${data.saved ? 'bi-bookmark-fill' : 'bi-bookmark'} me-2`}></i> {/* Bookmark Icon */}
+    {data.saved ? 'Remove from watchlist' : 'Save to watchlist'}
+  </button>
+</div>
+
+
       </div>
     </div>
   );
