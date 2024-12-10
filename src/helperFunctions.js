@@ -1,4 +1,18 @@
 import StockCard from './Components/StockCard/StockCard'
+const greenShades = {
+  1: '#22dd22',  //light green
+  2: '#17ad17',
+  3: '#208020',
+  4: '#1a641a',
+};
+
+const redShades = {
+  1: '#eb2c2c', //light red
+  2: '#ce2525',
+  3: '#b21818',
+  4: '#931616'
+}
+
 
 const extractData = (data) => {
   const baseData = data.historical.slice(0,150);
@@ -38,9 +52,9 @@ const makeStockCards = (constituents, toggleStockFromWatchlist) => {
   if (!constituents || constituents.length === 0) {
     return null;
   }
-
+  console.log(constituents);
   return (
-    <div className="row g-4">
+    <div className="row g-5">
       {constituents.map((constituent) => (
         <div className="col-md-4 col-lg-3" key={constituent.id}>
           <StockCard
@@ -56,5 +70,26 @@ const makeStockCards = (constituents, toggleStockFromWatchlist) => {
   );
 };
 
+const getShadeKey = (differencePercent) => {
+  const absDiff = Math.abs(differencePercent);
+  
+  if (absDiff <= 0.05) {
+    return 1;
+  } else if (absDiff <= 0.10) {
+    return 2;
+  } else if (absDiff <= 0.15) {
+    return 3;
+  } else {
+    return 4;
+  }
+};
+const getStockColor = (lastClose, average) => {
+  const differencePercent = (lastClose - average) / average;
+  const shadeKey = getShadeKey(Math.abs(differencePercent));
+  const isAbove = differencePercent > 0;
+  return isAbove ? greenShades[shadeKey] : redShades[shadeKey];
+};
 
-export {extractData, rankStocks, makeStockCards, isAboveAverage}
+
+
+export {extractData, rankStocks, makeStockCards, isAboveAverage, getStockColor}

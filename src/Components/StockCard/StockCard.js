@@ -1,15 +1,15 @@
 import './StockCard.css';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { isAboveAverage } from '../../helperFunctions';
+import { isAboveAverage, getStockColor } from '../../helperFunctions';
 
 const StockCard = ({ symbol, name, data, id, toggleStockFromWatchlist }) => {
   return (
     <div className="card position-relative stock-card futuristic-card shadow-lg rounded p-3 mb-4 h-100">
-      <div className='position-absolute top-0 start-0 ms-2 bg-danger
-      
-      text-white py-1 px-3 rounded-3 z-index-10'>
-      <span>{symbol}</span>
+      <div className="symbol-tag position-absolute text-white py-2 px-3 rounded-3 z-index-10"
+        style={{ backgroundColor: getStockColor(data.lastClose, data.average) }}
+>
+        <span className="fs-6">{symbol}</span>
       </div>
       <div className="card-body">
         <h5 className="card-title text-center futuristic-text">{name}</h5>
