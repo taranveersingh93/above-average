@@ -1,15 +1,13 @@
 import './StockCard.css';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { isAboveAverage, getStockColor } from '../../helperFunctions';
+import { isAboveAverage } from '../../helperFunctions';
+import SymbolTag from './SymbolTag';
 
 const StockCard = ({ symbol, name, data, id, toggleStockFromWatchlist }) => {
   return (
     <div className="card position-relative stock-card shadow-lg rounded p-3 mb-4 h-100">
-      <div className="symbol-tag position-absolute text-white py-1 px-3 rounded-3 z-index-10"
-        style={{ backgroundColor: getStockColor(data.lastClose, data.average) }}>
-        <span className="symbol-text">{symbol}</span>
-      </div>
+      <SymbolTag symbol={symbol} data={data} />
       <div className="card-body d-flex flex-column justify-content-around">
       <div className="d-flex justify-content-around mb-4 p-3 border-bottom align-items-center">
     <p className="rank-text fs-3">
@@ -58,12 +56,11 @@ const StockCard = ({ symbol, name, data, id, toggleStockFromWatchlist }) => {
     View Chart
   </Link>
 
-  {/* Save to Watchlist Button with conditional styling and icons */}
   <button 
     onClick={() => toggleStockFromWatchlist(id)} 
     className={`btn m-2 w-50 ${data.saved ? 'btn-outline-danger' : 'btn-outline-primary'} d-flex align-items-center justify-content-center`}
   >
-    <i className={`bi ${data.saved ? 'bi-bookmark-fill' : 'bi-bookmark'} me-2`}></i> {/* Bookmark Icon */}
+    <i className={`bi ${data.saved ? 'bi-bookmark-fill' : 'bi-bookmark'} me-2`}></i>
     {data.saved ? 'Remove from watchlist' : 'Save to watchlist'}
   </button>
 </div>
