@@ -1,22 +1,23 @@
 import nasdaqConstituentsStub from "../fixtures/nasdaqConstituents"
+import { cy } from 'cypress';
 
 const allSymbols = ["AAPL", "ABNB", "ADBE", "ADI", "ADP"];
 let symbolWaitArray
 
 describe('Navigation tests', () => {
   beforeEach(() => {
-    cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/nasdaqData`, {
+    cy.intercept('GET', `https://above-average-api-production.up.railway.app/nasdaqData`, {
       statusCode: 200,
       fixture: 'nasdaqResponse'
     }).as('getNasdaqData')
 
-    cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/nasdaqConstituents`, {
+    cy.intercept('GET', `https://above-average-api-production.up.railway.app/nasdaqConstituents`, {
       statusCode: 200,
       body: nasdaqConstituentsStub
     }).as('getNasdaqConstituents')
   
     allSymbols.forEach(symbol => {
-      cy.intercept('GET', `https://above-average-api-8566e04bf888.herokuapp.com/${symbol}`, {
+      cy.intercept('GET', `https://above-average-api-production.up.railway.app/${symbol}`, {
         statusCode: 200,
         fixture: `stub${symbol}`
       }).as(`get${symbol}`)

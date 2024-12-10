@@ -35,18 +35,26 @@ const rankStocks = stocks => {
 }
 
 const makeStockCards = (constituents, toggleStockFromWatchlist) => {
-  const stocksCode = constituents.map(constituent => {
-    return <StockCard
-      symbol={constituent.symbol}
-      name={constituent.name}
-      id={constituent.id}
-      key={constituent.id}
-      data={constituent.data}
-      toggleStockFromWatchlist={toggleStockFromWatchlist}
-    />
-  })
+  if (!constituents || constituents.length === 0) {
+    return null;
+  }
 
-  return stocksCode;
-}
+  return (
+    <div className="row g-4">
+      {constituents.map((constituent) => (
+        <div className="col-md-4 col-lg-3" key={constituent.id}>
+          <StockCard
+            symbol={constituent.symbol}
+            name={constituent.name}
+            id={constituent.id}
+            data={constituent.data}
+            toggleStockFromWatchlist={toggleStockFromWatchlist}
+          />
+        </div>
+      ))}
+    </div>
+  );
+};
+
 
 export {extractData, rankStocks, makeStockCards, isAboveAverage}

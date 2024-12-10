@@ -60,8 +60,9 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
     const nasdaqCode = makeStockCards(stocksOfInterest, toggleStockFromWatchlist);
     setStocksCode(nasdaqCode)
   }, [stocksOfInterest])
+
   return (
-    <div className="stocks-view">
+    <div className="stocks-view container g-4">
       {!dataFailed && !waitingForData && <Searchbar searchValue={searchValue} handleSearch={handleSearch}/>}
       {stocksToShow && !dataFailed && !waitingForData && <h2 className="heading">Rating {stocksOfInterest.length} Nasdaq stocks based on their closing price vs their 150d Moving Average</h2>}
       {stocksToShow && !dataFailed && !waitingForData && <p className="subheading">These stocks are ranked by their 150 Day return.</p>}
