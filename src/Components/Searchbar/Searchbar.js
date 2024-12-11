@@ -1,25 +1,19 @@
-import { useState } from 'react';
-import crossIcon from '../../images/cross.png';
 import './Searchbar.css';
 import PropTypes from 'prop-types';
 
 const Searchbar = ({handleSearch, searchValue}) => {
   return (
-    <div className="search-container">
-      <input 
-        className="searchbar"
-        name='searchbar'
-        placeholder="Search a stock symbol or name"
-        type="text"
-        onChange={event => handleSearch(event.target.value)}
-        value={searchValue}
-      ></input>
-      <div className="cross-container">
-        <img
-          src={crossIcon}
-          name='cross-icon'
-          className="cross-icon"
-          onClick={() => handleSearch('')}/>
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className='col-12 col-sm-6 font-weight-100'>
+          <input
+            type="text"
+            className="form-control form-control-lg rounded-pill "
+            placeholder="Search a stock name or a symbol..."
+            value={searchValue}
+            onChange={event => handleSearch(event.target.value)}
+          />
+        </div>
       </div>
     </div>
   )
