@@ -7,7 +7,7 @@ const TopSection = ({id, name, data}) => {
             #{id}
           </p>
           <div className="d-flex flex-column align-items-center">
-            <h5 className="font-weight-300 text-center">{name}</h5>
+            <h5 className="font-weight-300 text-center">#{id} {name}</h5>
             <p className="font-weight-300 small-text text-center">Last Close: {data?.lastClose}</p>
           </div>
         </div>

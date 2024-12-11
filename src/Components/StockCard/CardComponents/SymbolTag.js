@@ -1,4 +1,4 @@
-import { getStockColor } from "../../helperFunctions"
+import { getStockColor } from "../../../helperFunctions"
 import PropTypes from 'prop-types';
 
 
