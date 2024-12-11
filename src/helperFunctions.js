@@ -107,7 +107,7 @@ const sortStocks = (sortValue, stocks) => {
       const bRating = b.data.lastClose > b.data.average ? 1 : 0;
       return bRating - aRating;
     } else if (sortValue === "priceAvgDiff") {
-      return (b.data.lastClose - b.data.average) - (a.data.lastClose - a.data.average);
+      return ((b.data.lastClose - b.data.average)/b.data.average) - ((a.data.lastClose - a.data.average)/a.data.average);
     } else if (sortValue === "longTermMomentum") {
       return Number(b.data.longTermReturn) - Number(a.data.longTermReturn);
     } else {
