@@ -7,6 +7,7 @@
 .navlinks a {
   color: white;
   text-decoration: none;
+  font-size: 1.2rem;
 }
 
 .navlinks .active {
@@ -19,3 +20,15 @@
     border-bottom: solid 1px white;
   }
 } 
+
+@media (max-width: 768px) {
+  .navlinks a {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .navlinks a {
+    font-size: 0.85rem;
+  }
+}

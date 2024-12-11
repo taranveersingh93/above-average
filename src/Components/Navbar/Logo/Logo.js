@@ -3,8 +3,8 @@ import './Logo.css';
 
 const Logo = () => {
   return (
-    <div className="logo">
-      <img src={logoImage} alt='up arrow'></img>
+    <div className="logo d-flex justify-content-evenly align-items-center">
+      <img src={logoImage} className='logo-img' alt='up arrow'></img>
       <h1 className='logo-text'>Above Average</h1>
     </div>
   )
