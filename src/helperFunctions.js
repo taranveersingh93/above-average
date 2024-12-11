@@ -52,9 +52,8 @@ const makeStockCards = (constituents, toggleStockFromWatchlist) => {
   if (!constituents || constituents.length === 0) {
     return null;
   }
-  console.log(constituents);
   return (
-    <div className="row g-5">
+    <div className="row g-5 mt-4">
       {constituents.map((constituent) => (
         <div className="col-12 col-sm-6 col-xl-4 col-xxl-3" key={constituent.id}>
           <StockCard

@@ -9,13 +9,8 @@ import ErrorPage from '../ErrorPage/ErrorPage';
 
 
 const App = () => {
-  // const [nasdaqData, setNasdaqData] = useState({});
   const [nasdaqConstituents, setNasdaqConstituents] = useState([]);
   const [savedConstituents, setSavedConstituents] = useState([]);
-
-  // const assignNasdaqData = data => {
-  //   setNasdaqData(data);
-  // }
 
   const assignNasdaqConstituents = data => {
     setNasdaqConstituents(data);
@@ -33,7 +28,6 @@ const App = () => {
     setSavedConstituents(savedStocks);
   }, [nasdaqConstituents])
 
-  // <Route path="/" element={<HomeView nasdaqData={nasdaqData} assignNasdaqData={assignNasdaqData}/>}/>
   return (
     <>
       <Navbar />

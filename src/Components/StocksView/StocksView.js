@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchStock, fetchNasdaqConstituents } from "../../apiCalls";
-import { rankStocks, makeStockCards, isAboveAverage } from "../../helperFunctions";
+import { rankStocks, makeStockCards } from "../../helperFunctions";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import Searchbar from "../Searchbar/Searchbar";
 import PropTypes from 'prop-types';
@@ -62,10 +62,10 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
   }, [stocksOfInterest])
 
   return (
-    <div className="stocks-view container g-4">
+    <div className="stocks-view container">
       {!dataFailed && !waitingForData && <Searchbar searchValue={searchValue} handleSearch={handleSearch}/>}
-      {stocksToShow && !dataFailed && !waitingForData && <h2 className="heading">Rating {stocksOfInterest.length} Nasdaq stocks based on their closing price vs their 150d Moving Average</h2>}
-      {stocksToShow && !dataFailed && !waitingForData && <p className="subheading">These stocks are ranked by their 150 Day return.</p>}
+      {/* {stocksToShow && !dataFailed && !waitingForData && <h2 className="heading">Rating {stocksOfInterest.length} Nasdaq stocks based on their closing price vs their 150d Moving Average</h2>} */}
+      {/* {stocksToShow && !dataFailed && !waitingForData && <p className="subheading">These stocks are ranked by their 150 Day return.</p>} */}
       {!dataFailed && !waitingForData && stocksCode}
       {!stocksToShow && !dataFailed && !waitingForData && <h2 className="heading">No Nasdaq stocks match your search</h2>}
       {!waitingForData && dataFailed && <h2>{errorMessage}</h2>}
