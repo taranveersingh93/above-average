@@ -19,11 +19,10 @@ const Watchlist = ({savedConstituents, toggleStockFromWatchlist}) => {
   }, [savedConstituents])
 
   return (
-    <div className="watchlist-view">
-      {stocksSaved && <h2 className="heading">Displaying {savedConstituents.length} saved stocks</h2>}
-      {stocksSaved && <p className="subheading">These stocks are ranked by their 150 Day return.</p>}
+    <div className="watchlist-view container">
+      {stocksSaved && <h2 className="font-light text-black-50 text-center mt-4">Displaying {savedConstituents.length} saved stocks</h2>}
       {stocksSaved && stocksCode}
-      {!stocksSaved && <h2>You have no stocks saved</h2>}
+      {!stocksSaved && <h2 className='font-light text-black-50 text-center mt-4'>You have no stocks saved</h2>}
     </div>
   )
 }
