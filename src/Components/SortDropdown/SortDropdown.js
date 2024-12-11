@@ -10,15 +10,17 @@ const SortDropdown = ({ handleSort, sortValue }) => {
       </label>
       <select
         id="sortDropdown"
-        className="form-select w-auto font-weight-300"
+        className="form-select w-auto font-weight-300 small-text"
         value={sortValue}
         onChange={event => handleSort(event.target.value)}
         style={{ borderRadius: '20px', maxWidth: '200px' }}
       >
-        <option value="alphabetically">Alphabetically</option>
+        <option value="name">Name</option>
+        <option value="symbol">Symbol</option>
         <option value="dailyChange">Daily Change</option>
         <option value="rating">Rating</option>
-        <option value="momentum">Momentum</option>
+        <option value="priceAvgDiff">Current Momentum</option>
+        <option value="longTermMomentum">Long Term Momentum</option>
       </select>
     </div>
   );

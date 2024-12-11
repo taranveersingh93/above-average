@@ -82,6 +82,7 @@ const getShadeKey = (differencePercent) => {
     return 4;
   }
 };
+
 const getStockColor = (lastClose, average) => {
   const differencePercent = (lastClose - average) / average;
   const shadeKey = getShadeKey(Math.abs(differencePercent));
@@ -89,6 +90,31 @@ const getStockColor = (lastClose, average) => {
   return isAbove ? greenShades[shadeKey] : redShades[shadeKey];
 };
 
+const filterStocks = (searchText, stocks) => {
+  return [...stocks].filter(stock => stock.name.toLowerCase().includes(searchText.toLowerCase()) || stock.symbol.toLowerCase().includes(searchText.toLowerCase()));
+}
+
+const sortStocks = (sortValue, stocks) => {
+  return [...stocks].sort((a, b) => {
+    if (sortValue === "name") {
+      return a.name.localeCompare(b.name);
+    } else if (sortValue === "symbol") {
+      return a.symbol.localeCompare(b.symbol);
+    } else if (sortValue === "dailyChange") {
+      return b.data.changePercent - a.data.changePercent;
+    } else if (sortValue === "rating") {
+      const aRating = a.data.lastClose > a.data.average ? 1 : 0;
+      const bRating = b.data.lastClose > b.data.average ? 1 : 0;
+      return bRating - aRating;
+    } else if (sortValue === "priceAvgDiff") {
+      return (b.data.lastClose - b.data.average) - (a.data.lastClose - a.data.average);
+    } else if (sortValue === "longTermMomentum") {
+      return Number(b.data.longTermReturn) - Number(a.data.longTermReturn);
+    } else {
+      return 0;
+    }
+  });
+}
 
 
-export {extractData, rankStocks, makeStockCards, isAboveAverage, getStockColor}
+export {extractData, rankStocks, makeStockCards, isAboveAverage, getStockColor, filterStocks, sortStocks}

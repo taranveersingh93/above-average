@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchStock, fetchNasdaqConstituents } from "../../apiCalls";
-import { rankStocks, makeStockCards } from "../../helperFunctions";
+import { rankStocks, makeStockCards, filterStocks, sortStocks } from "../../helperFunctions";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import Searchbar from "../Searchbar/Searchbar";
 import PropTypes from 'prop-types';
@@ -15,21 +15,22 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
   const [stocksCode, setStocksCode] = useState([]);
   const [stocksOfInterest, setStocksOfInterest] = useState([]);
   const [searchValue, setSearchValue] = useState('');
-  const [sortValue, setSortValue] = useState('momentum');
+  const [sortValue, setSortValue] = useState('longTermMomentum');
   const [stocksToShow, setStocksToShow] = useState(false);
-
-  const filterStocks = (searchText, stocks) => {
-    return [...stocks].filter(stock => stock.name.toLowerCase().includes(searchText.toLowerCase()) || stock.symbol.toLowerCase().includes(searchText.toLowerCase()));
-  }
 
   const handleSearch = (searchText) => {
     setSearchValue(searchText);
-    setStocksOfInterest(filterStocks(searchText, nasdaqConstituents));
   }
-
+  
   const handleSort = (newSortValue) => {
     setSortValue(newSortValue);
   }
+  
+  useEffect(() => {
+    const filteredStocks = filterStocks(searchValue, nasdaqConstituents);
+    const sortedStocks = sortStocks(sortValue, filteredStocks);
+    setStocksOfInterest(sortedStocks)
+  }, [searchValue, sortValue])
 
   useEffect(() => {
     if (!nasdaqConstituents.length) {
