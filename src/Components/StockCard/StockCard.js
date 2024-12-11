@@ -3,22 +3,14 @@ import PropTypes from 'prop-types';
 import { isAboveAverage } from '../../helperFunctions';
 import SymbolTag from './SymbolTag';
 import ButtonContainer from './ButtonContainer';
+import TopSection from './TopSection';
 
 const StockCard = ({ symbol, name, data, id, toggleStockFromWatchlist }) => {
   return (
     <div className="card position-relative stock-card shadow-lg rounded p-3 mb-4 h-100">
       <SymbolTag symbol={symbol} data={data} />
       <div className="card-body d-flex flex-column justify-content-around">
-        <div className="d-flex justify-content-around mb-4 p-3 border-bottom align-items-center">
-      <p className="rank-text fs-3">
-        #{id}
-      </p>
-      <div className="d-flex flex-column align-items-center">
-        <h5 className="font-weight-300 text-center">{name}</h5>
-        <p className="font-weight-300 small-text text-center">Last Close: {data?.lastClose}</p>
-      </div>
-
-        </div>
+        <TopSection id={id} name={name} data={data} />
         <div className="d-flex align-items-center justify-content-around border p-2 mb-2">
           <i className="bi bi-info-circle text-success fs-3 me-3"></i>
           <div className="d-flex flex-column align-items-center">
