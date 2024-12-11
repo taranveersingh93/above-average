@@ -6,3 +6,11 @@
 .small-text {
     font-size: 12px;
 }
+
+.form-select.small-text {
+    font-size: 12px;
+}
+
+.form-select.font-weight-300 {
+    font-weight: 300;
+}
