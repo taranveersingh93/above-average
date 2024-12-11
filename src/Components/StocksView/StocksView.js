@@ -5,6 +5,7 @@ import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import Searchbar from "../Searchbar/Searchbar";
 import PropTypes from 'prop-types';
 import './StocksView.css'
+import SortDropdown from "../SortDropdown/SortDropdown";
 
 const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFromWatchlist}) => {
   
@@ -14,6 +15,7 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
   const [stocksCode, setStocksCode] = useState([]);
   const [stocksOfInterest, setStocksOfInterest] = useState([]);
   const [searchValue, setSearchValue] = useState('');
+  const [sortValue, setSortValue] = useState('momentum');
   const [stocksToShow, setStocksToShow] = useState(false);
 
   const filterStocks = (searchText, stocks) => {
@@ -23,6 +25,10 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
   const handleSearch = (searchText) => {
     setSearchValue(searchText);
     setStocksOfInterest(filterStocks(searchText, nasdaqConstituents));
+  }
+
+  const handleSort = (newSortValue) => {
+    setSortValue(newSortValue);
   }
 
   useEffect(() => {
@@ -64,6 +70,7 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
   return (
     <div className="stocks-view container">
       {!dataFailed && !waitingForData && <Searchbar searchValue={searchValue} handleSearch={handleSearch}/>}
+      {!dataFailed && !waitingForData && <SortDropdown sortValue={sortValue} handleSort={handleSort}/>}
       {/* {stocksToShow && !dataFailed && !waitingForData && <h2 className="heading">Rating {stocksOfInterest.length} Nasdaq stocks based on their closing price vs their 150d Moving Average</h2>} */}
       {/* {stocksToShow && !dataFailed && !waitingForData && <p className="subheading">These stocks are ranked by their 150 Day return.</p>} */}
       {!dataFailed && !waitingForData && stocksCode}
