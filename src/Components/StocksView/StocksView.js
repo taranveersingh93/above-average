@@ -71,10 +71,10 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
   return (
     <div className="stocks-view container">
       {!waitingForData && dataFailed && <h2>{errorMessage}</h2>}
-      {!stocksToShow && !dataFailed && !waitingForData && <h2 className="heading">No Nasdaq stocks match your search</h2>}
       {waitingForData && <LoadSpinner />}
       {!dataFailed && !waitingForData && <Searchbar searchValue={searchValue} handleSearch={handleSearch}/>}
       {!dataFailed && !waitingForData && <SortDropdown sortValue={sortValue} handleSort={handleSort}/>}
+      {!stocksToShow && !dataFailed && !waitingForData && <h2 className="font-light text-black-50 text-center mt-4">No Nasdaq stocks match your search</h2>}
       {!dataFailed && !waitingForData && stocksCode}
     </div>
   )
