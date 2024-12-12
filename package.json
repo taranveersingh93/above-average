@@ -22,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cypress open",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -44,8 +44,10 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^13.13.3",
+    "@cypress/webpack-preprocessor": "^6.0.2",
+    "cypress": "^13.16.1",
     "process": "^0.11.10",
-    "webpack": "^5.93.0"
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4"
   }
 }
