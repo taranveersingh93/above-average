@@ -3,12 +3,12 @@ import { makeStockCards } from '../../helperFunctions';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Watchlist = ({savedConstituents, toggleStockFromWatchlist}) => {
+const Watchlist = ({savedConstituents, toggleStockFromWatchlist, cardsPerRow}) => {
   const [stocksCode, setStocksCode] = useState([]);
   const [stocksSaved, setStocksSaved] = useState(false);
 
   useEffect(() => {
-    const watchlistCode = makeStockCards(savedConstituents, toggleStockFromWatchlist);
+    const watchlistCode = makeStockCards(savedConstituents, toggleStockFromWatchlist, cardsPerRow);
     setStocksCode(watchlistCode);  
 
     if (savedConstituents.length) {
@@ -29,7 +29,8 @@ const Watchlist = ({savedConstituents, toggleStockFromWatchlist}) => {
 
 Watchlist.propTypes = {
   savedConstituents: PropTypes.array,
-  toggleStockFromWatchlist: PropTypes.func
+  toggleStockFromWatchlist: PropTypes.func,
+  cardsPerRow: PropTypes.number
 }
 
 export default Watchlist

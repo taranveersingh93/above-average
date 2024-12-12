@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import './StocksView.css'
 import SortDropdown from "../SortDropdown/SortDropdown";
 
-const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFromWatchlist}) => {
+const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFromWatchlist, cardsPerRow}) => {
   
   const [errorMessage, setErrorMessage] = useState('');
   const [waitingForData, setWaitingForData] = useState(true);
@@ -64,7 +64,7 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
     } else {
       setStocksToShow(false);
     }
-    const nasdaqCode = makeStockCards(stocksOfInterest, toggleStockFromWatchlist);
+    const nasdaqCode = makeStockCards(stocksOfInterest, toggleStockFromWatchlist, cardsPerRow);
     setStocksCode(nasdaqCode)
   }, [stocksOfInterest])
 
@@ -83,7 +83,8 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
 StocksView.propTypes = {
   nasdaqConstituents: PropTypes.array,
   assignNasdaqConstituents: PropTypes.func,
-  toggleStockFromWatchlist: PropTypes.func
+  toggleStockFromWatchlist: PropTypes.func,
+  cardsPerRow: PropTypes.number
 }
 
 export default StocksView;

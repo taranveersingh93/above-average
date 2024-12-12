@@ -48,26 +48,49 @@ const rankStocks = stocks => {
   return ranksIncluded;
 }
 
-const makeStockCards = (constituents, toggleStockFromWatchlist) => {
+const makeStockCards = (constituents, toggleStockFromWatchlist, cardsPerRow) => {
   if (!constituents || constituents.length === 0) {
     return null;
   }
+
   return (
     <div className="row g-5 mt-4">
-      {constituents.map((constituent) => (
-        <div className="col-12 col-sm-6 col-xl-4 col-xxl-3" key={constituent.id}>
-          <StockCard
-            symbol={constituent.symbol}
-            name={constituent.name}
-            id={constituent.id}
-            data={constituent.data}
-            toggleStockFromWatchlist={toggleStockFromWatchlist}
-          />
-        </div>
-      ))}
+      {constituents.map((constituent, index) => {
+        const delay = (index % cardsPerRow) * 150;
+        return (
+          <div
+            className="col-12 col-sm-6 col-xl-4 col-xxl-3"
+            key={constituent.id}
+            data-aos="fade-up"
+            data-aos-delay={delay}
+          >
+            <StockCard
+              symbol={constituent.symbol}
+              name={constituent.name}
+              id={constituent.id}
+              data={constituent.data}
+              toggleStockFromWatchlist={toggleStockFromWatchlist}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 };
+
+const getCardsPerRow = () => {
+  const width = window.innerWidth;
+  if (width < 576) {
+    return 1;
+  }
+  if (width < 1200) {
+    return 2;
+  }
+  if (width < 1400) {
+    return 3;
+  }
+  return 4;
+}
 
 const getShadeKey = (differencePercent) => {
   const absDiff = Math.abs(differencePercent);
@@ -117,4 +140,4 @@ const sortStocks = (sortValue, stocks) => {
 }
 
 
-export {extractData, rankStocks, makeStockCards, isAboveAverage, getStockColor, filterStocks, sortStocks}
+export {extractData, rankStocks, makeStockCards, isAboveAverage, getStockColor, filterStocks, sortStocks, getCardsPerRow}

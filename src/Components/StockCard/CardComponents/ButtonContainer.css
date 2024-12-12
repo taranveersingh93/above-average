@@ -1,0 +1,9 @@
+.button-container > .btn {
+    width: 100%;
+}
+
+@media (max-width: 576px) {
+    .button-container > .btn {
+        width: 50%;
+    }    
+}
