@@ -20,7 +20,11 @@ const Watchlist = ({savedConstituents, toggleStockFromWatchlist, cardsPerRow}) =
 
   return (
     <div className="watchlist-view container">
-      {stocksSaved && <h2 className="font-light text-black-50 text-center mt-4">Displaying {savedConstituents.length} saved stocks</h2>}
+      {stocksSaved && (
+        <h2 className="font-light text-black-50 text-center mt-4">
+          Displaying {savedConstituents.length} saved {savedConstituents.length === 1 ? 'stock' : 'stocks'}
+        </h2>
+      )}
       {stocksSaved && stocksCode}
       {!stocksSaved && <h2 className='font-light text-black-50 text-center mt-4'>You have no stocks saved</h2>}
     </div>
