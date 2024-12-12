@@ -3,7 +3,7 @@ import nasdaqConstituentsStub from "../fixtures/nasdaqConstituents"
 
 const allSymbols = ["AAPL", "ABNB", "ADBE", "ADI", "ADP"];
 
-describe('Elements rendering', () => {
+describe('Elements rendering tests', () => {
   beforeEach(() => {
     cy.intercept('GET', `https://above-average-api-production.up.railway.app/nasdaqConstituents`, {
      statusCode: 200,
@@ -100,7 +100,7 @@ describe('Elements rendering', () => {
   })
 })
 
-describe('Error handling', () => {
+describe('Error handling tests', () => {
   it('should return an error if fetching nasdaq constituents fail', () => {
     cy.intercept('GET', `https://above-average-api-production.up.railway.app/nasdaqConstituents`, {
      statusCode: 404,

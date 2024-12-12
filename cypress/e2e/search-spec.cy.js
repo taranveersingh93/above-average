@@ -77,6 +77,8 @@ describe('Stocksview spec', () => {
   it('should show error message if no results found', () => {
     cy.get('input.form-control').type('abcde')
     cy.get('h2').contains('No Nasdaq stocks match your search');
+    cy.get('input.form-control').clear()
+    cy.get('.stock-card').should('have.length', 5)
   })
 })
   
