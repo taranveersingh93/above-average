@@ -3,7 +3,7 @@ import nasdaqConstituentsStub from "../fixtures/nasdaqConstituents"
 
 const allSymbols = ["AAPL", "ABNB", "ADBE", "ADI", "ADP"];
 
-describe('Stocksview spec', () => {
+describe('Elements rendering', () => {
   beforeEach(() => {
     cy.intercept('GET', `https://above-average-api-production.up.railway.app/nasdaqConstituents`, {
      statusCode: 200,
@@ -32,6 +32,20 @@ describe('Stocksview spec', () => {
     cy.get('.logo').find('img').should('exist')
     cy.get('.logo').find('h1').should('contain.text', 'Above Average')
   })
+
+  it('should have navlinks with two anchor tags and correct content', () => {
+    cy.get('.navlinks')
+      .should('exist')
+      .children('a')
+      .should('have.length', 2)
+  
+    cy.get('.navlinks').children('a').eq(0)
+      .should('have.class', 'active')
+      .should('contain.text', 'Home');
+  
+    cy.get('.navlinks').children('a').eq(1)
+      .should('contain.text', 'Watchlist');
+  });
 
   it('should show 5 stock cards', () => {
     cy.get('.stock-card').should('have.length', 5)
@@ -87,7 +101,7 @@ describe('Stocksview spec', () => {
 })
 
 describe('Error handling', () => {
-  it('should return an error if constituents fail', () => {
+  it('should return an error if fetching nasdaq constituents fail', () => {
     cy.intercept('GET', `https://above-average-api-production.up.railway.app/nasdaqConstituents`, {
      statusCode: 404,
    }).as('getNasdaqConstituents')
@@ -99,12 +113,12 @@ describe('Error handling', () => {
      }).as(`get${symbol}`)
    })
 
-   cy.visit('localhost:3000/stocksView')
+   cy.visit('localhost:3000')
    cy.wait('@getNasdaqConstituents')
    cy.get('h2').contains('Something went wrong')
   })
 
-  it('should return an error if an individual stock fetch fails', () => {
+  it('should return an error if fetching an individual stock fails', () => {
     cy.intercept('GET', `https://above-average-api-production.up.railway.app/nasdaqConstituents`, {
       statusCode: 200,
       body: nasdaqConstituentsStub
