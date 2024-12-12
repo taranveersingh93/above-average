@@ -23,6 +23,16 @@ describe('Stocksview spec', () => {
    cy.wait(symbolWaitArray);
   })
 
+  it('should show a navbar', () => {
+    cy.get('.navbar').should('exist')
+  })
+
+  it('should show logo', () => {
+    cy.get('.logo').should('exist')
+    cy.get('.logo').find('img').should('exist')
+    cy.get('.logo').find('h1').should('contain.text', 'Above Average')
+  })
+
   it('should show 5 stock cards', () => {
     cy.get('.stock-card').should('have.length', 5)
   })
