@@ -13,11 +13,6 @@ const checkForError = response => {
 let fetchUrl = "https://above-average-api-production.up.railway.app";
 // fetchUrl = "http://localhost:3001"
 
-const fetchNasdaq = () => {
-    return fetch(`${fetchUrl}/nasdaqData`)
-    .then(response => checkForError(response))
-}
-
 const fetchNasdaqConstituents = () => {
   return fetch(`${fetchUrl}/nasdaqConstituents`)
     .then(response => checkForError(response))
