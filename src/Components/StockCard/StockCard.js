@@ -7,7 +7,7 @@ import InfoSection from './CardComponents/InfoSection';
 
 const StockCard = ({ symbol, name, data, id, toggleStockFromWatchlist }) => {
   return (
-    <div className="card position-relative stock-card shadow-lg rounded p-3 mb-4 h-100">
+    <div className="card position-relative stock-card shadow-lg rounded p-3 h-100">
       <SymbolTag symbol={symbol} data={data} />
       <div className="card-body d-flex flex-column justify-content-around">
         <TopSection id={id} name={name} data={data} />
