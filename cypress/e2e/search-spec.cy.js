@@ -3,7 +3,7 @@ import nasdaqConstituentsStub from "../fixtures/nasdaqConstituents"
 
 const allSymbols = ["AAPL", "ABNB", "ADBE", "ADI", "ADP"];
 
-describe('Stocksview spec', () => {
+describe('Search functionality tests', () => {
   beforeEach(() => {
     cy.intercept('GET', `https://above-average-api-production.up.railway.app/nasdaqConstituents`, {
      statusCode: 200,
