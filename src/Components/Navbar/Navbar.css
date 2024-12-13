@@ -1,40 +1,34 @@
 .navbar {
   background-color: rgb(29, 41, 19);
   height: 15%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   min-height: 150px;
-}
-
-.navlinks {
-  min-width: 400px;
-  width: 50%;
-  display: flex;
-  justify-content: space-evenly;
-  margin: 10px;
-}
-
-.navlinks p{
-  margin: 0;
 }
 
 .navlinks a {
   color: white;
   text-decoration: none;
-  border: solid 1px rgb(29, 41, 19);
-  padding: 5px;
+  font-size: 1.2rem;
 }
 
 .navlinks .active {
   color: rgb(89, 252, 92);
-  border: solid 1px white;
-  padding: 5px;
+  border-bottom: solid 1px white;
 }
 
 @media (min-width:901px) {
   a:hover {
-    border: solid 1px white;
+    border-bottom: solid 1px white;
+  }
+} 
+
+@media (max-width: 768px) {
+  .navlinks a {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .navlinks a {
+    font-size: 0.85rem;
   }
 }

@@ -6,6 +6,9 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "aos": "^2.3.4",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
     "chart.js": "^4.3.3",
     "dotenv": "^16.3.1",
     "prop-types": "^15.8.1",
@@ -19,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cypress run",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -41,6 +44,10 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^12.17.3"
+    "@cypress/webpack-preprocessor": "^6.0.2",
+    "cypress": "^13.16.1",
+    "process": "^0.11.10",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4"
   }
 }

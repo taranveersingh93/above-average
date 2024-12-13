@@ -1,8 +1,0 @@
-.home-view {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 85vh;
-  max-height: 85vh;
-}

@@ -1,4 +1,18 @@
 import StockCard from './Components/StockCard/StockCard'
+const greenShades = {
+  1: '#22dd22',  //light green
+  2: '#17ad17',
+  3: '#208020',
+  4: '#1a641a',
+};
+
+const redShades = {
+  1: '#eb2c2c', //light red
+  2: '#ce2525',
+  3: '#b21818',
+  4: '#931616'
+}
+
 
 const extractData = (data) => {
   const baseData = data.historical.slice(0,150);
@@ -34,19 +48,96 @@ const rankStocks = stocks => {
   return ranksIncluded;
 }
 
-const makeStockCards = (constituents, toggleStockFromWatchlist) => {
-  const stocksCode = constituents.map(constituent => {
-    return <StockCard
-      symbol={constituent.symbol}
-      name={constituent.name}
-      id={constituent.id}
-      key={constituent.id}
-      data={constituent.data}
-      toggleStockFromWatchlist={toggleStockFromWatchlist}
-    />
-  })
+const makeStockCards = (constituents, toggleStockFromWatchlist, cardsPerRow) => {
+  if (!constituents || constituents.length === 0) {
+    return null;
+  }
 
-  return stocksCode;
+  return (
+    <div className="row g-5 mt-4">
+      {constituents.map((constituent, index) => {
+        const delay = (index % cardsPerRow) * 150;
+        return (
+          <div
+            className="col-12 col-sm-6 col-xl-4 col-xxl-3"
+            key={constituent.id}
+            data-aos="fade-up"
+            data-aos-delay={delay}
+          >
+            <StockCard
+              symbol={constituent.symbol}
+              name={constituent.name}
+              id={constituent.id}
+              data={constituent.data}
+              toggleStockFromWatchlist={toggleStockFromWatchlist}
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+const getCardsPerRow = () => {
+  const width = window.innerWidth;
+  if (width < 576) {
+    return 1;
+  }
+  if (width < 1200) {
+    return 2;
+  }
+  if (width < 1400) {
+    return 3;
+  }
+  return 4;
 }
 
-export {extractData, rankStocks, makeStockCards, isAboveAverage}
+const getShadeKey = (differencePercent) => {
+  const absDiff = Math.abs(differencePercent);
+  
+  if (absDiff <= 0.05) {
+    return 1;
+  } else if (absDiff <= 0.10) {
+    return 2;
+  } else if (absDiff <= 0.15) {
+    return 3;
+  } else {
+    return 4;
+  }
+};
+
+const getStockColor = (lastClose, average) => {
+  const differencePercent = (lastClose - average) / average;
+  const shadeKey = getShadeKey(Math.abs(differencePercent));
+  const isAbove = differencePercent > 0;
+  return isAbove ? greenShades[shadeKey] : redShades[shadeKey];
+};
+
+const filterStocks = (searchText, stocks) => {
+  return [...stocks].filter(stock => stock.name.toLowerCase().includes(searchText.toLowerCase()) || stock.symbol.toLowerCase().includes(searchText.toLowerCase()));
+}
+
+const sortStocks = (sortValue, stocks) => {
+  return [...stocks].sort((a, b) => {
+    if (sortValue === "name") {
+      return a.name.localeCompare(b.name);
+    } else if (sortValue === "symbol") {
+      return a.symbol.localeCompare(b.symbol);
+    } else if (sortValue === "dailyChange") {
+      return b.data.changePercent - a.data.changePercent;
+    } else if (sortValue === "rating") {
+      const aRating = a.data.lastClose > a.data.average ? 1 : 0;
+      const bRating = b.data.lastClose > b.data.average ? 1 : 0;
+      return bRating - aRating;
+    } else if (sortValue === "priceAvgDiff") {
+      return ((b.data.lastClose - b.data.average)/b.data.average) - ((a.data.lastClose - a.data.average)/a.data.average);
+    } else if (sortValue === "longTermMomentum") {
+      return Number(b.data.longTermReturn) - Number(a.data.longTermReturn);
+    } else {
+      return 0;
+    }
+  });
+}
+
+
+export {extractData, rankStocks, makeStockCards, isAboveAverage, getStockColor, filterStocks, sortStocks, getCardsPerRow}

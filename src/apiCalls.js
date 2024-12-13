@@ -39,7 +39,6 @@ const fetchStock = (stock) => {
 }
 
 export {
-  fetchNasdaq,
   fetchNasdaqConstituents,
   fetchStock
 }
