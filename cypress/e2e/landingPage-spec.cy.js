@@ -89,13 +89,13 @@ describe('Elements rendering tests', () => {
     cy.get('#sortDropdown')
         .children('option')
         .eq(4)
-        .should('contain.text', 'Current Momentum')
+        .should('contain.text', 'Current Day Momentum')
         .should('have.value', 'priceAvgDiff');
         
     cy.get('#sortDropdown')
         .children('option')
         .eq(5)
-        .should('contain.text', 'Long Term Momentum')
+        .should('contain.text', 'Long Term Return')
         .should('have.value', 'longTermMomentum');
   })
 })

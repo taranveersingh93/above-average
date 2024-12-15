@@ -19,8 +19,8 @@ const SortDropdown = ({ handleSort, sortValue }) => {
         <option value="symbol">Symbol</option>
         <option value="dailyChange">Daily Change</option>
         <option value="rating">Rating</option>
-        <option value="priceAvgDiff">Current Momentum</option>
-        <option value="longTermMomentum">Long Term Momentum</option>
+        <option value="priceAvgDiff">Current Day Momentum</option>
+        <option value="longTermMomentum">Long Term Return</option>
       </select>
     </div>
   );
