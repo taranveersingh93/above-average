@@ -23,7 +23,7 @@ describe('Sorting tests', () => {
      cy.wait(symbolWaitArray);
     })
   
-    it('should be sorted by long term momentum by default', () => {
+    it('should be sorted by long term return by default', () => {
         cy.get('#sortDropdown')
         .should('have.value', 'longTermMomentum')
     })
@@ -148,7 +148,7 @@ describe('Sorting tests', () => {
         .should('contain.text','ADP')
     })
 
-    it('should be able to sort stocks by long term momentum', () => {
+    it('should be able to sort stocks by long term rating', () => {
         cy.get('#sortDropdown')
         .select(4)
 
@@ -178,7 +178,7 @@ describe('Sorting tests', () => {
         .should('contain.text','ADP')
     })
 
-    it('should be able to sort stocks by current momentum', () => {
+    it('should be able to sort stocks by current day momentum', () => {
         cy.get('#sortDropdown')
         .select(4)
 
