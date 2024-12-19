@@ -101,7 +101,6 @@ const App = () => {
           setDataFailed(true);
         })
     } else {
-      console.log(nasdaqConstituents)
       const savedStocks = nasdaqConstituents.filter(stock => stock.data.saved);
       setSavedConstituents(savedStocks);
       setStocksOfInterest(nasdaqConstituents);
@@ -148,7 +147,7 @@ const App = () => {
            waitingForData={waitingForData}
            dataFailed={dataFailed}
            />} />
-        <Route path='/chart/:symbol' element={<StockChart nasdaqConstituents={nasdaqConstituents}/>}></Route>
+        <Route path='/chart/:symbol' element={<StockChart/>}/>
         <Route path='*' element={<ErrorPage />} />
       </Routes>
     </>
