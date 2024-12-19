@@ -90,5 +90,71 @@ describe('Watchlist tests', () => {
     });
     
    
-  })
+})
+
+describe('Watchlist persistence tests', () => {
+  beforeEach(() => {
+    cy.intercept('GET', `https://above-average-api-production.up.railway.app/nasdaqConstituents`, {
+      statusCode: 200,
+      body: nasdaqConstituentsStub
+    }).as('getNasdaqConstituents')
   
+    allSymbols.forEach(symbol => {
+      cy.intercept('GET', `https://above-average-api-production.up.railway.app/${symbol}`, {
+        statusCode: 200,
+        fixture: `stub${symbol}`
+      }).as(`get${symbol}`)
+    })
+  
+    cy.visit('localhost:3000/')
+    cy.wait('@getNasdaqConstituents')
+    const symbolWaitArray = allSymbols.map(symbol => `@get${symbol}`)
+    cy.wait(symbolWaitArray);
+  })
+
+  it('should persist the saved stock after reloading the page', () => {
+    cy.get('.navlinks').children('a').eq(0).click()
+    cy.get('.stock-card').eq(0).find('button').should('have.text', 'Save').click()
+
+    cy.get('.navlinks').children('a').eq(1).click()
+    cy.get('h2').should('contain.text', 'Displaying 1 saved stock')
+    
+    cy.reload()
+
+    cy.get('.navlinks').children('a').eq(1).click()
+    cy.get('h2').should('contain.text', 'Displaying 1 saved stock')
+    cy.get('.stock-card').eq(0).find('button').should('have.text', 'Remove')
+  })
+
+  it('should persist multiple saved stocks after reloading the page', () => {
+    cy.get('.navlinks').children('a').eq(0).click()
+    cy.get('.stock-card').eq(0).find('button').should('have.text', 'Save').click()
+    cy.get('.stock-card').eq(1).find('button').should('have.text', 'Save').click()
+    cy.get('.stock-card').eq(2).find('button').should('have.text', 'Save').click()
+
+    cy.get('.navlinks').children('a').eq(1).click()
+    cy.get('h2').should('contain.text', 'Displaying 3 saved stocks')
+
+    cy.reload()
+
+    cy.get('.navlinks').children('a').eq(1).click()
+    cy.get('h2').should('contain.text', 'Displaying 3 saved stocks')
+    cy.get('.stock-card').eq(0).find('button').should('have.text', 'Remove')
+    cy.get('.stock-card').eq(1).find('button').should('have.text', 'Remove')
+    cy.get('.stock-card').eq(2).find('button').should('have.text', 'Remove')
+  })
+
+  it('should persist saved stocks after navigating away and returning', () => {
+    cy.get('.navlinks').children('a').eq(0).click()
+    cy.get('.stock-card').eq(0).find('button').should('have.text', 'Save').click()
+
+    cy.get('.navlinks').children('a').eq(1).click()
+    cy.get('h2').should('contain.text', 'Displaying 1 saved stock')
+
+    cy.get('.navlinks').children('a').eq(0).click()
+
+    cy.get('.navlinks').children('a').eq(1).click()
+    cy.get('h2').should('contain.text', 'Displaying 1 saved stock')
+    cy.get('.stock-card').eq(0).find('button').should('have.text', 'Remove')
+  })
+})
