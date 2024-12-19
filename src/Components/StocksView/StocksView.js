@@ -1,62 +1,25 @@
 import { useEffect, useState } from "react";
-import { fetchStock, fetchNasdaqConstituents } from "../../apiCalls";
-import { rankStocks, makeStockCards, filterStocks, sortStocks } from "../../helperFunctions";
+import { makeStockCards } from "../../helperFunctions";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import Searchbar from "../Searchbar/Searchbar";
 import PropTypes from 'prop-types';
 import './StocksView.css'
 import SortDropdown from "../SortDropdown/SortDropdown";
 
-const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFromWatchlist, cardsPerRow}) => {
+const StocksView = ({
+  stocksOfInterest,
+  toggleStockFromWatchlist, 
+  cardsPerRow,
+  handleSearch, 
+  handleSort, 
+  errorMessage, 
+  waitingForData, 
+  dataFailed,
+  searchValue,
+  sortValue}) => {
   
-  const [errorMessage, setErrorMessage] = useState('');
-  const [waitingForData, setWaitingForData] = useState(true);
-  const [dataFailed, setDataFailed] = useState(true);
   const [stocksCode, setStocksCode] = useState([]);
-  const [stocksOfInterest, setStocksOfInterest] = useState([]);
-  const [searchValue, setSearchValue] = useState('');
-  const [sortValue, setSortValue] = useState('longTermMomentum');
   const [stocksToShow, setStocksToShow] = useState(false);
-
-  const handleSearch = (searchText) => {
-    setSearchValue(searchText);
-  }
-  
-  const handleSort = (newSortValue) => {
-    setSortValue(newSortValue);
-  }
-  
-  useEffect(() => {
-    const filteredStocks = filterStocks(searchValue, nasdaqConstituents);
-    const sortedStocks = sortStocks(sortValue, filteredStocks);
-    setStocksOfInterest(sortedStocks)
-  }, [searchValue, sortValue])
-
-  useEffect(() => {
-    if (!nasdaqConstituents.length) {
-      fetchNasdaqConstituents()
-        .then(constituents => {
-          return Promise.all(
-            constituents.map((constituent) => fetchStock(constituent))
-          )
-        })
-        .then(unfilteredConstituents => {
-          const newConstituents = rankStocks(unfilteredConstituents);
-          setWaitingForData(false);
-          setDataFailed(false);
-          assignNasdaqConstituents(newConstituents);
-        })
-        .catch(error => {
-          setErrorMessage(error.message)
-          setWaitingForData(false);
-          setDataFailed(true);
-        })
-    } else {
-      setDataFailed(false)
-      setWaitingForData(false)
-      setStocksOfInterest(filterStocks(searchValue, nasdaqConstituents))
-    }
-  }, [nasdaqConstituents])
 
   useEffect(() => {
     if (stocksOfInterest.length) {
@@ -81,10 +44,16 @@ const StocksView = ({nasdaqConstituents, assignNasdaqConstituents, toggleStockFr
 }
 
 StocksView.propTypes = {
-  nasdaqConstituents: PropTypes.array,
-  assignNasdaqConstituents: PropTypes.func,
+  stocksOfInterest: PropTypes.array,
   toggleStockFromWatchlist: PropTypes.func,
-  cardsPerRow: PropTypes.number
+  cardsPerRow: PropTypes.number,
+  handleSearch: PropTypes.func,
+  handleSort: PropTypes.func,
+  errorMessage: PropTypes.string,
+  waitingForData: PropTypes.bool,
+  dataFailed: PropTypes.bool,
+  searchValue: PropTypes.string,
+  sortValue: PropTypes.string
 }
 
 export default StocksView;
