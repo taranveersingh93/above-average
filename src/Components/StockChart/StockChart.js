@@ -14,6 +14,7 @@ import {
   Legend,
 } from 'chart.js';
 import LoadSpinner from '../LoadSpinner/LoadSpinner';
+import zoomPlugin from 'chartjs-plugin-zoom';
 
 ChartJS.register(
   CategoryScale,
