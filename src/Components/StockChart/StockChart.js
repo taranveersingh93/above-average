@@ -14,7 +14,7 @@ import {
   Legend,
 } from 'chart.js';
 import LoadSpinner from '../LoadSpinner/LoadSpinner';
-import zoomPlugin from 'chartjs-plugin-zoom';
+import zoomPlugin, { pan, zoom } from 'chartjs-plugin-zoom';
 
 ChartJS.register(
   CategoryScale,
@@ -57,11 +57,17 @@ const StockChart = () => {
 
   useEffect(() => {
     if (currentStock.data) {
+      const prices = currentStock.data.priceHistory.map(price => price.close);
+      const minPrice = Math.min(...prices);
+      const maxPrice = Math.max(...prices);
+
       const options = {
         responsive: true,
         scales: {
           y: {
-            color:"#ffffff"
+            color:"#ffffff",
+            min: minPrice*0.8,
+            max: maxPrice*1.2
           }
         },
         plugins: {
@@ -72,7 +78,33 @@ const StockChart = () => {
             display: true,
             text: `${currentSymbol} closing prices over last 150 days`,
           },
-        },
+          zoom: {
+            pan: {
+              enabled: true,
+              mode: 'xy', 
+              speed: 10,
+              threshold: 10,
+              limits: {
+                x: { min: 0, max: currentStock.data.priceHistory.length - 1 },
+                y: { min: minPrice*0.8, max: maxPrice*1.2 },
+              },
+            },
+            zoom: {
+              pinch: {
+                enabled: true,
+                mode: 'x',
+              },
+              wheel: {
+                enabled: true,
+                mode: 'x',
+              },
+            },
+            limits: {
+              x: { min: 0, max: currentStock.data.priceHistory.length - 1 },
+              y: { min: minPrice*0.8, max: maxPrice*1.2 },
+            },
+          },
+        }
       };
       const labels = currentStock.data.priceHistory.map(price => price.date)
 
@@ -81,7 +113,7 @@ const StockChart = () => {
         datasets: [
           {
             label: `${currentStock.symbol}`,
-            data: currentStock.data.priceHistory.map(price => price.close),
+            data: prices,
             borderColor: 'rgb(89, 252, 92)',
             backgroundColor: 'rgb(29, 41, 19)',
           }
