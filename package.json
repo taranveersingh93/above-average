@@ -10,6 +10,7 @@
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "chart.js": "^4.3.3",
+    "chartjs-plugin-zoom": "^2.2.0",
     "dotenv": "^16.3.1",
     "js-cookie": "^3.0.5",
     "prop-types": "^15.8.1",
