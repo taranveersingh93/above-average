@@ -1,7 +1,14 @@
+/* Ensure the chart container is responsive */
 .line-container {
-  max-height: 80vh;
   height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Rotate the chart when the screen width is less than 400px */
+@media (max-width: 400px) {
+  .line-container {
+
+  }
 }
