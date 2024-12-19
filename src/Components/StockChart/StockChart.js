@@ -24,6 +24,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
+  zoomPlugin
 );
 
 const StockChart = () => {
