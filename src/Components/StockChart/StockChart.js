@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import './StockChart.css';  // Make sure to update this CSS file
+import './StockChart.css';
 import { Line } from 'react-chartjs-2';
 import { fetchStock } from '../../apiCalls';
 import {
