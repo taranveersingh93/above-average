@@ -30,7 +30,7 @@ describe('Elements rendering tests', () => {
   it('should show logo', () => {
     cy.get('.logo').should('exist')
     cy.get('.logo').find('img').should('exist')
-    cy.get('.logo').find('h1').should('contain.text', 'Above Average')
+    cy.get('.logo').find('h3').should('contain.text', 'Above Average')
   })
 
   it('should have navlinks with two anchor tags and correct content', () => {

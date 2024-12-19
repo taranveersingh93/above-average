@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <div className="logo d-flex justify-content-evenly align-items-center">
       <img src={logoImage} className='logo-img' alt='up arrow'></img>
-      <h1 className='logo-text'>Above Average</h1>
+      <h3 className='logo-text'>Above Average</h3>
     </div>
   )
 }
